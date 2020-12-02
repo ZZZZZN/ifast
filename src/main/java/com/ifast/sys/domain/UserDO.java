@@ -80,27 +80,31 @@ public class UserDO implements Serializable {
     //进入单位形式
     private String jrdwxs;
     //参加工作时间
-    private Date job_start;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date jobStart;
     //进入单位时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date jrdwsj;
     //最高学历
-    private String education_top;
+    private String educationTop;
     //最高学历类型
-    private String education_type;
+    private String educationType;
     //毕业学校
     private String school;
     //最高学位
-    private String degree_top;
+    private String degreeTop;
     //毕业时间
-    private Date graduation_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date graduationTime;
     //专业
     private String major;
     //职称名称
     private String title;
     //职称取得时间
-    private Date title_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date titleTime;
     //职称等级
-    private String title_leve;
+    private String titleLeve;
     
 
     /**
@@ -392,13 +396,9 @@ public class UserDO implements Serializable {
         this.jrdwxs = jrdwxs;
     }
 
-    public Date getJob_start() {
-        return job_start;
-    }
 
-    public void setJob_start(Date job_start) {
-        this.job_start = job_start;
-    }
+
+
 
     public Date getJrdwsj() {
         return jrdwsj;
@@ -408,21 +408,12 @@ public class UserDO implements Serializable {
         this.jrdwsj = jrdwsj;
     }
 
-    public String getEducation_top() {
-        return education_top;
-    }
 
-    public void setEducation_top(String education_top) {
-        this.education_top = education_top;
-    }
 
-    public String getEducation_type() {
-        return education_type;
-    }
 
-    public void setEducation_type(String education_type) {
-        this.education_type = education_type;
-    }
+
+
+
 
     public String getSchool() {
         return school;
@@ -432,21 +423,12 @@ public class UserDO implements Serializable {
         this.school = school;
     }
 
-    public String getDegree_top() {
-        return degree_top;
-    }
 
-    public void setDegree_top(String degree_top) {
-        this.degree_top = degree_top;
-    }
 
-    public Date getGraduation_time() {
-        return graduation_time;
-    }
 
-    public void setGraduation_time(Date graduation_time) {
-        this.graduation_time = graduation_time;
-    }
+
+
+
 
     public String getMajor() {
         return major;
@@ -464,20 +446,60 @@ public class UserDO implements Serializable {
         this.title = title;
     }
 
-    public Date getTitle_time() {
-        return title_time;
+    public Date getJobStart() {
+        return jobStart;
     }
 
-    public void setTitle_time(Date title_time) {
-        this.title_time = title_time;
+    public void setJobStart(Date jobStart) {
+        this.jobStart = jobStart;
     }
 
-    public String getTitle_leve() {
-        return title_leve;
+    public String getEducationTop() {
+        return educationTop;
     }
 
-    public void setTitle_leve(String title_leve) {
-        this.title_leve = title_leve;
+    public void setEducationTop(String educationTop) {
+        this.educationTop = educationTop;
+    }
+
+    public String getEducationType() {
+        return educationType;
+    }
+
+    public void setEducationType(String educationType) {
+        this.educationType = educationType;
+    }
+
+    public String getDegreeTop() {
+        return degreeTop;
+    }
+
+    public void setDegreeTop(String degreeTop) {
+        this.degreeTop = degreeTop;
+    }
+
+    public Date getGraduationTime() {
+        return graduationTime;
+    }
+
+    public void setGraduationTime(Date graduationTime) {
+        this.graduationTime = graduationTime;
+    }
+
+    public Date getTitleTime() {
+        return titleTime;
+    }
+
+    public void setTitleTime(Date titleTime) {
+        this.titleTime = titleTime;
+    }
+
+    public String getTitleLeve() {
+        return titleLeve;
+    }
+
+    public void setTitleLeve(String titleLeve) {
+        this.titleLeve = titleLeve;
     }
 
     @Override
@@ -511,17 +533,17 @@ public class UserDO implements Serializable {
                 ", bzlb='" + bzlb + '\'' +
                 ", ryzt='" + ryzt + '\'' +
                 ", jrdwxs='" + jrdwxs + '\'' +
-                ", job_start=" + job_start +
+                ", jobStart=" + jobStart +
                 ", jrdwsj=" + jrdwsj +
-                ", education_top='" + education_top + '\'' +
-                ", education_type='" + education_type + '\'' +
+                ", educationTop='" + educationTop + '\'' +
+                ", educationType='" + educationType + '\'' +
                 ", school='" + school + '\'' +
-                ", degree_top='" + degree_top + '\'' +
-                ", graduation_time=" + graduation_time +
+                ", degreeTop='" + degreeTop + '\'' +
+                ", graduationTime=" + graduationTime +
                 ", major='" + major + '\'' +
                 ", title='" + title + '\'' +
-                ", title_time=" + title_time +
-                ", title_leve='" + title_leve + '\'' +
+                ", titleTime=" + titleTime +
+                ", titleLeve='" + titleLeve + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 @charset "utf-8";
 body{
-    background-image: url('background.png');
+    background-color: #2074BB;
+    /*background-image: url('background.png');*/
 }
 .wrap{
     box-sizing: border-box;
@@ -10,12 +11,12 @@ body{
 }
 .form-data{
     background-color: #ffffff;
-    width: 460px;
+    width: 520px;
     left: 50%;
     margin-left: -230px;
     border-radius: 5px;
     box-shadow: 0 0 30px rgba(0,0,0,.1);
-    padding: 65px 0 30px 0;
+    padding: 150px 0 30px 0;
     position: fixed;
     top: 15%;
 }
@@ -116,8 +117,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .form-data .head-logo{
     position: absolute;
-    top: -47px;
-    left: 116px;
+    top: 5px;
+    left: 23px;
 }
 .reg_checkboxline{
     font-size: 14px;

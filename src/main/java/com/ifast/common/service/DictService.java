@@ -87,4 +87,10 @@ public interface DictService extends CoreService<DictDO> {
      * @return
      */
     List<DictDO> selectjrdwxsList();
+
+    /**
+     * 获取人员状态
+     * @return
+     */
+    List<DictDO> selectryztList();
 }
