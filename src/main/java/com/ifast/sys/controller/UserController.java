@@ -194,6 +194,8 @@ public class UserController extends BaseController {
         List<DictDO> degree_topList =dictService.selectdegree_topList();
         //获取人员信息字典-进入单位形式
         List<DictDO> jrdwxsList =dictService.selectjrdwxsList();
+        //获取人员信息字典-人员状态
+        List<DictDO> ryztList =dictService.selectryztList();
         model.addAttribute("rankList", rankList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("politicalList", politicalList);
@@ -203,6 +205,7 @@ public class UserController extends BaseController {
         model.addAttribute("education_typeList", education_typeList);
         model.addAttribute("degree_topList", degree_topList);
         model.addAttribute("jrdwxsList", jrdwxsList);
+        model.addAttribute("ryztList", ryztList);
         return prefix + "/personal";
     }
     

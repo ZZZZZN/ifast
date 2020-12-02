@@ -136,4 +136,13 @@ public class DictServiceImpl extends CoreServiceImpl<DictDao, DictDO> implements
         return DictDO.dao.selectList("type = {0}", "jrdwxs");
     }
 
+    /**
+     * 获取人员状态
+     * @return
+     */
+    @Override
+    public List<DictDO> selectryztList() {
+        return DictDO.dao.selectList("type = {0}", "ryzt");
+    }
+
 }

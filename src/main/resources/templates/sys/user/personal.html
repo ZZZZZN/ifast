@@ -21,7 +21,7 @@
                 </div>
                 <div class="tab-content">
                     <!--basic info-->
-                    <div class="ibox-content tab-pane fade in active"  id="basic_info">
+                    <div class="ibox-content tab-pane fade in active" id="basic_info">
                         <form class="gg-form" role="form" id="basicInfoForm">
                             <input name="id" type="hidden" th:value="${user.id}"/>
                             <div class="gg-formGroup">
@@ -30,7 +30,8 @@
                                     <span>姓名:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <input type="text" class="form-control" id="userName" name="name" th:value="${user.name}"  placeholder="请输入姓名" />
+                                    <input type="text" class="form-control" id="userName" name="name"
+                                           th:value="${user.name}" placeholder="请输入姓名"/>
                                 </div>
                             </div>
                             <div class="gg-formGroup">
@@ -41,7 +42,8 @@
                                 <div class="gg-formDetail">
                                     <div class="radio i-checks">
                                         <label class="radio-inline" th:each="sex:${sexList}"> <input
-                                                th:field="*{user.sex}" type="radio" name="sex" th:value="${sex.id}" th:text="${sex.name}"/>
+                                                th:field="*{user.sex}" type="radio" name="sex" th:value="${sex.id}"
+                                                th:text="${sex.name}"/>
                                         </label>
                                     </div>
                                 </div>
@@ -52,8 +54,12 @@
                                     <span>出生年月:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <input type="text" class="laydate-icon layer-date form-control" id="birth" name="birth" th:value="${user.birth} eq null ? '' : ${#dates.format(user.birth,'yyyy-MM-dd')}" placeholder="请选择出生年月"
-                                           onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" readonly="readonly"/>
+                                    <input type="text" class="laydate-icon layer-date form-control" id="birth"
+                                           name="birth"
+                                           th:value="${user.birth} eq null ? '' : ${#dates.format(user.birth,'yyyy-MM-dd')}"
+                                           placeholder="请选择出生年月"
+                                           onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"
+                                           style="background-color: #fff;" readonly="readonly"/>
                                 </div>
                             </div>
                             <div class="gg-formGroup">
@@ -62,7 +68,8 @@
                                     <span>手机:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <input type="text" class="form-control" id="phone" name="mobile"  th:value="${user.mobile}" placeholder="请输入手机号" />
+                                    <input type="text" class="form-control" id="phone" name="mobile"
+                                           th:value="${user.mobile}" placeholder="请输入手机号"/>
                                 </div>
                             </div>
                             <div class="gg-formGroup">
@@ -71,7 +78,8 @@
                                     <span>邮箱:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <input type="text" class="form-control" id="email" name="email" th:value="${user.email}" placeholder="请输入邮箱" />
+                                    <input type="text" class="form-control" id="email" name="email"
+                                           th:value="${user.email}" placeholder="请输入邮箱"/>
                                 </div>
                             </div>
                             <div class="gg-formGroup">
@@ -79,7 +87,8 @@
                                     <em class="gg-star">*</em>
                                     <span>居住地:</span>
                                 </div>
-                                <div class="gg-formDetail gg-font0" data-toggle="distpicker"  th:attr="data-province=${user.province},data-city=${user.city},data-district=${user.district}">
+                                <div class="gg-formDetail gg-font0" data-toggle="distpicker"
+                                     th:attr="data-province=${user.province},data-city=${user.city},data-district=${user.district}">
                                     <div class="gg-area">
                                         <select class="form-control" id="province" name="province">
                                         </select>
@@ -100,7 +109,8 @@
                                     <span>联系地址:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <input type="text" class="form-control" id="address" name="liveAddress" th:value="${user.liveAddress}" placeholder="请输入居住地址" />
+                                    <input type="text" class="form-control" id="address" name="liveAddress"
+                                           th:value="${user.liveAddress}" placeholder="请输入居住地址"/>
                                 </div>
                             </div>
                             <div class="gg-formGroup">
@@ -109,11 +119,240 @@
                                     <span>爱好:</span>
                                 </div>
                                 <div class="gg-formDetail">
-                                    <div class="checxbox i-checks" >
+                                    <div class="checxbox i-checks">
                                         <input type="hidden" name="hobby" id="hobby"/>
                                         <label th:each="hobby : ${hobbyList}">
-                                            <input type="checkbox" class="hobby"  th:value="${hobby.id}" th:text="${hobby.name}" th:checked="${hobby.remarks}=='true'"/>
+                                            <input type="checkbox" class="hobby" th:value="${hobby.id}"
+                                                   th:text="${hobby.name}" th:checked="${hobby.remarks}=='true'"/>
                                         </label>
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>职级：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="rank" name="rank"  class="form-control">
+                                               <option>--请选择--</option>
+                                                <option th:each="rank:${rankList}" th:value="${rank.value}" th:text="${rank.name}" th:selected="${user.rank eq  rank.value}"></option>
+                                        </select>
+                                       <!-- <input id="rank" name="rank" th:value="${user.rank}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>民族：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="nation" name="nation"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="nation:${nationList}" th:value="${nation.value}" th:text="${nation.name}" th:selected="${user.nation eq  nation.value}"></option>
+                                        </select>
+                                        <!--<input id="nation" name="nation" th:value="${user.nation}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>政治面貌</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <div class="gg-formDetail">
+                                            <select id="political" name="political"  class="form-control">
+                                                <option>--请选择--</option>
+                                                <option th:each="political:${politicalList}" th:value="${political.value}" th:text="${political.name}" th:selected="${user.political eq  political.value}"></option>
+                                            </select>
+                                        </div>
+                                       <!-- <input id="political" name="political" th:value="${user.political}"
+                                               class="form-control" type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>身份证号：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="idnumber" name="idnumber" th:value="${user.idnumber}"
+                                               class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>编制所在单位：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="bzszdw" name="bzszdw"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="bzszdw:${bzszdwList}" th:value="${bzszdw.value}" th:text="${bzszdw.name}" th:selected="${user.bzszdw eq  bzszdw.value}"></option>
+                                        </select>
+                                        <!--<input id="bzszdw" name="bzszdw" th:value="${user.bzszdw}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>编制类别：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="bzlb" name="bzlb"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="bzlb:${bzlbList}" th:value="${bzlb.value}" th:text="${bzlb.name}" th:selected="${user.bzlb eq  bzlb.value}"></option>
+                                        </select>
+                                        <!--<input id="bzlb" name="bzlb" th:value="${user.bzlb}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>人员状态</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="ryzt" name="ryzt"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="ryzt:${ryztList}" th:value="${ryzt.value}" th:text="${ryzt.name}" th:selected="${user.ryzt eq  ryzt.value}"></option>
+                                        </select>
+                                        <!--<input id="ryzt" name="ryzt" th:value="${user.ryzt}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>进入单位形式：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="jrdwxs" name="jrdwxs"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="jrdwxs:${jrdwxsList}" th:value="${jrdwxs.value}" th:text="${jrdwxs.name}" th:selected="${user.jrdwxs eq  jrdwxs.value}"></option>
+                                        </select>
+                                       <!-- <input id="jrdwxs" name="jrdwxs" th:value="${user.jrdwxs}" class="form-control"
+                                               type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>参加工作时间：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="jobStart" name="jobStart"
+                                               th:value="${user.jobStart} eq null ? '' : ${#dates.format(user.jobStart, 'yyyy-MM-dd')}"
+                                               class="laydate-icon layer-date form-control" placeholder="请选参加工作时间"
+                                               onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"
+                                               style="background-color: #fff;" readonly="readonly"/>
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>进入单位时间：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="jrdwsj" name="jrdwsj"
+                                               th:value="${user.jrdwsj} eq null ? '' : ${#dates.format(user.jrdwsj, 'yyyy-MM-dd')}"
+                                               placeholder="请选择进入单位时间"
+                                               onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"
+                                               style="background-color: #fff;" readonly="readonly"
+                                               class="laydate-icon layer-date form-control"/>
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>最高学历：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="educationTop" name="educationTop"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="educationTop:${education_topList}" th:value="${educationTop.value}" th:text="${educationTop.name}" th:selected="${user.educationTop eq  educationTop.value}"></option>
+                                        </select>
+                                       <!-- <input id="educationTop" name="educationTop" th:value="${user.educationTop}"
+                                               class="form-control" type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>最高学历类型：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="educationType" name="educationType"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="educationType:${education_typeList}" th:value="${educationType.value}" th:text="${educationType.name}" th:selected="${user.educationType eq  educationType.value}"></option>
+                                        </select>
+                                        <!--<input id="educationType" name="educationType" th:value="${user.educationType}"
+                                               class="form-control" type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>毕业学校：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="school" name="school" th:value="${user.school}" class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>最高学位：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <select id="degreeTop" name="degreeTop"  class="form-control">
+                                            <option>--请选择--</option>
+                                            <option th:each="degreeTop:${degree_topList}" th:value="${degreeTop.value}" th:text="${degreeTop.name}" th:selected="${user.degreeTop eq  degreeTop.value}"></option>
+                                        </select>
+                                        <!--<input id="degreeTop" name="degreeTop" th:value="${user.degreeTop}"
+                                               class="form-control" type="text">-->
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>毕业时间：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="graduationTime" name="graduationTime"
+                                               th:value="${user.graduationTime} eq null ? '' : ${#dates.format(user.graduationTime, 'yyyy-MM-dd')}"
+                                               onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"
+                                               style="background-color: #fff;" readonly="readonly"
+                                               placeholder="请选择毕业时间"
+                                               class="laydate-icon layer-date form-control"/>
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>专业：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="major" name="major" th:value="${user.major}" class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>职称名称：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="title" name="title" th:value="${user.title}" class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>职称取得时间：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="titleTime" name="titleTime"
+                                               th:value="${user.titleTime} eq null ? '' : ${#dates.format(user.titleTime, 'yyyy-MM-dd')}"
+                                               class="laydate-icon layer-date form-control"
+                                               placeholder="请选择职称取得时间"
+                                               onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"
+                                               style="background-color: #fff;" readonly="readonly"/>
+                                    </div>
+                                </div>
+                                <div class="gg-formGroup">
+                                    <div class="gg-formTitle">
+                                        <span>职称等级：</span>
+                                    </div>
+                                    <div class="gg-formDetail">
+                                        <input id="titleLeve" name="titleLeve" th:value="${user.titleLeve}"
+                                               class="form-control" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +364,8 @@
                     <!--photo_info-->
                     <div class="ibox-content tab-pane fade gg" id="photo_info">
                         <div class="ggcontainer" id="crop-avatar">
-                            <form class="avatar-form" action="/sys/user/uploadImg" enctype="multipart/form-data" method="post">
+                            <form class="avatar-form" action="/sys/user/uploadImg" enctype="multipart/form-data"
+                                  method="post">
                                 <div class="avatar-body">
                                     <div class="avatar-upload">
                                         <input class="avatar-src" name="avatar_src" type="hidden">
@@ -148,20 +388,37 @@
                                     <div class="row avatar-btns">
                                         <div class="col-md-9">
                                             <div class="btn-group">
-                                                <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">左旋转</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15°</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30°</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45°</button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="-90"
+                                                        type="button" title="Rotate -90 degrees">左旋转
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="-15"
+                                                        type="button">-15°
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="-30"
+                                                        type="button">-30°
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="-45"
+                                                        type="button">-45°
+                                                </button>
                                             </div>
                                             <div class="btn-group">
-                                                <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">右旋转</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15°</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30°</button>
-                                                <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45°</button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="90"
+                                                        type="button" title="Rotate 90 degrees">右旋转
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="15"
+                                                        type="button">15°
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="30"
+                                                        type="button">30°
+                                                </button>
+                                                <button class="btn btn-primary" data-method="rotate" data-option="45"
+                                                        type="button">45°
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary btn-block avatar-save" type="submit">完成裁剪</button>
+                                            <button class="btn btn-primary btn-block avatar-save" type="submit">完成裁剪
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -174,14 +431,15 @@
                     <div class="ibox-content tab-pane fade" id="pwd_info">
                         <form class="gg-form" role="form" id="modifyPwd">
                             <a id="logout" class="hidden" href="/logout"></a>
-                            <input type="hidden" name ="userDO.id" th:value="${user.id}"/>
+                            <input type="hidden" name="userDO.id" th:value="${user.id}"/>
                             <div class="gg-formGroup">
                                 <div class="gg-formTitle">
                                     <em class="gg-star">*</em>
                                     <span>旧密码:</span>
                                 </div>
                                 <div class="gg-formDetail gg-dashed">
-                                    <input type="password" class="form-control gg-border0" id="pwdOld" name="pwdOld" placeholder="请输入旧密码" />
+                                    <input type="password" class="form-control gg-border0" id="pwdOld" name="pwdOld"
+                                           placeholder="请输入旧密码"/>
                                     <span class="fa fa-eye gg-faeye" title="鼠标移入显示内容"><span>
                                 </div>
                             </div>
@@ -191,7 +449,8 @@
                                     <span>新密码:</span>
                                 </div>
                                 <div class="gg-formDetail gg-dashed">
-                                    <input type="password" class="form-control gg-border0" id="pwdNew" name="pwdNew" placeholder="请输入新密码" />
+                                    <input type="password" class="form-control gg-border0" id="pwdNew" name="pwdNew"
+                                           placeholder="请输入新密码"/>
                                     <span class="fa fa-eye gg-faeye" title="鼠标移入显示内容"></span>
                                 </div>
                             </div>
@@ -201,7 +460,8 @@
                                     <span>确认密码:</span>
                                 </div>
                                 <div class="gg-formDetail gg-dashed">
-                                    <input type="password" class="form-control gg-border0" id="confirm_password" name="confirm_password" placeholder="请确认密码" />
+                                    <input type="password" class="form-control gg-border0" id="confirm_password"
+                                           name="confirm_password" placeholder="请确认密码"/>
                                     <span class="fa fa-eye gg-faeye" title="鼠标移入显示内容"></span>
                                 </div>
                             </div>
