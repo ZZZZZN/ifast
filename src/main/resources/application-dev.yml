@@ -83,3 +83,24 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
+
+#邮件配置
+  mail:
+    #smtp服务主机
+    host: smtp.qq.com
+    #服务协议
+    protocol: smtp
+    # 编码集
+    default-encoding: UTF-8
+    #发送邮件的账户
+    username: 1044890220@qq.com
+    #授权码
+    password: cawvuvseccaqbfef
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
