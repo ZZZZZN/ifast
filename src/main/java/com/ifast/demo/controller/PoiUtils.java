@@ -111,7 +111,8 @@ public class PoiUtils {
         Date now=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd") ;
         // 设置要导出的文件的名字
-        String fileName =  "人员信息表.xls";
+
+        String fileName ="人员信息"+simpleDateFormat.format(now) +".xls";
 
         // 新增数据行，并且设置单元格数据
         int rowNum = 1;
@@ -166,7 +167,7 @@ public class PoiUtils {
         }
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.setHeader("Content-disposition", "attachment;filename=" +new String(fileName.getBytes("utf-8") ,"ISO8859-1"));
         response.flushBuffer();
         workbook.write(response.getOutputStream());
     }
