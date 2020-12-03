@@ -5,6 +5,38 @@ $(function() {
 	load(deptId);
 });
 
+function ex() {
+	/*var thisDLoc   =   document.location;*/
+	var hostport=document.location.host;
+	var name=$('#searchName').val();
+	// var predeptId=deptId;
+	location.href="http://"+hostport+"/sys/user/export"+name+"/"+deptId;
+	/*$.ajax({
+		type: "GET",
+		url:"/sys/user/export",
+		error: function(){
+			parent.layer.alert("Connection error");
+		},
+		success:function () {
+			parent.layer.alert("Connection success");
+		}
+
+
+	});*/
+
+}
+
+function getTreeData() {
+	$.ajax({
+		type : "GET",
+		url : "/sys/dept/tree",
+		success : function(tree) {
+			loadTree(tree);
+		}
+	});
+}
+
+
 function load(deptId) {
 	$('#exampleTable')
 		.bootstrapTable(
@@ -189,15 +221,7 @@ function batchRemove() {
 		});
 	}, function() {});
 }
-function getTreeData() {
-	$.ajax({
-		type : "GET",
-		url : "/sys/dept/tree",
-		success : function(tree) {
-			loadTree(tree);
-		}
-	});
-}
+
 function loadTree(tree) {
 	$('#jstree').jstree({
 		'core' : {
@@ -225,3 +249,4 @@ $('#jstree').on("changed.jstree", function(e, data) {
 	}
 
 });
+

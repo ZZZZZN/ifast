@@ -1,10 +1,24 @@
 package com.ifast.demo.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
+import com.ifast.common.base.CoreService;
+import com.ifast.sys.domain.DeptDO;
+import com.ifast.sys.service.DeptService;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -82,4 +96,44 @@ public class PoiUtils {
         }
         return listMap.size() == 0 ? null : listMap;
     }
+
+
+
+    // 将数据导出成excel文件
+    public static void Export(HttpServletResponse response,String name,String predeptId) throws IOException {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("信息表");
+//        List<UserDetails> classmateList = userService.getUserDetails();
+
+        // 设置要导出的文件的名字
+        String fileName = name  + ".xls";
+
+        // 新增数据行，并且设置单元格数据
+        int rowNum = 1;
+
+        // headers表示excel表中第一行的表头 在excel表中添加表头
+//        String[] headers = { "id", "uid", "地址", "城市"};
+//        HSSFRow row = sheet.createRow(0);
+//        for(int i=0;i<headers.length;i++){
+//            HSSFCell cell = row.createCell(i);
+//            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+//            cell.setCellValue(text);
+//        }
+
+        //在表中存放查询到的数据放入对应的列
+//        for (UserDetails item : classmateList) {
+//            HSSFRow row1 = sheet.createRow(rowNum);
+//            row1.createCell(0).setCellValue(item.getId());
+//            row1.createCell(1).setCellValue(item.getUid());
+//            row1.createCell(2).setCellValue(item.getAddress());
+//            row1.createCell(3).setCellValue(item.getCity());
+//            rowNum++;
+//        }
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
+    }
+
 }

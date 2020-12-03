@@ -7,6 +7,7 @@ import com.ifast.common.domain.DictDO;
 import com.ifast.common.domain.Tree;
 import com.ifast.common.service.DictService;
 import com.ifast.common.utils.Result;
+import com.ifast.demo.controller.PoiUtils;
 import com.ifast.sys.domain.DeptDO;
 import com.ifast.sys.domain.RoleDO;
 import com.ifast.sys.domain.UserDO;
@@ -14,13 +15,17 @@ import com.ifast.sys.service.RoleService;
 import com.ifast.sys.service.UserService;
 import com.ifast.sys.vo.UserVO;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -128,6 +133,13 @@ public class UserController extends BaseController {
         return !userService.exist(params);
     }
 
+
+    @GetMapping("/export/{name}/{deptId}")
+    @ResponseBody
+    public void testExport(HttpServletResponse response, @PathVariable("name") String name,  @PathVariable("deptId")String predeptId) throws IOException {
+        PoiUtils.Export(response,name,predeptId);
+    }
+
     @RequiresPermissions("sys:user:resetPwd")
     @GetMapping("/resetPwd/{id}")
     String resetPwd(@PathVariable("id") Long userId, Model model) {
@@ -154,7 +166,8 @@ public class UserController extends BaseController {
         return Result.ok();
 
     }
-    
+
+
     @GetMapping("/tree")
     @ResponseBody
     public Tree<DeptDO> tree() {
@@ -218,4 +231,8 @@ public class UserController extends BaseController {
         result = userService.updatePersonalImg(file, avatar_data, getUserId());
         return Result.ok(result);
     }
+
+
+
+
 }
