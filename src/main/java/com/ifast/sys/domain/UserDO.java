@@ -48,6 +48,8 @@ public class UserDO implements Serializable {
     private List<Long> roleIds;
     //性别
     private Long sex;
+    @TableField(exist = false)
+    private String sexName;
     //出身日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
@@ -105,7 +107,10 @@ public class UserDO implements Serializable {
     private Date titleTime;
     //职称等级
     private String titleLeve;
-    
+
+    public UserDO() {
+    }
+
 
     /**
      * 设置：用户名
@@ -397,8 +402,13 @@ public class UserDO implements Serializable {
     }
 
 
+    public String getSexName() {
+        return sexName;
+    }
 
-
+    public void setSexName(String sexName) {
+        this.sexName = sexName;
+    }
 
     public Date getJrdwsj() {
         return jrdwsj;

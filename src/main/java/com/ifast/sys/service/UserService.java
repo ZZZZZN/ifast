@@ -5,9 +5,11 @@ import com.ifast.common.domain.Tree;
 import com.ifast.sys.domain.DeptDO;
 import com.ifast.sys.domain.UserDO;
 import com.ifast.sys.vo.UserVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,4 +52,12 @@ public interface UserService extends CoreService<UserDO> {
      * @throws Exception
      */
     Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, Long userId) throws Exception;
+
+    /**
+        导出功能
+     */
+    List<UserDO> exportUser(@Param("name") String name, @Param("deptId")String deptId);
+
+
+
 }

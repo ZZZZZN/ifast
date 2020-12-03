@@ -134,10 +134,14 @@ public class UserController extends BaseController {
     }
 
 
-    @GetMapping("/export/{name}/{deptId}")
+    @GetMapping("/export")
     @ResponseBody
-    public void testExport(HttpServletResponse response, @PathVariable("name") String name,  @PathVariable("deptId")String predeptId) throws IOException {
-        PoiUtils.Export(response,name,predeptId);
+    public void testExport(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String name=request.getParameter("name");
+        String deptId=request.getParameter("deptId");
+        List<UserDO> export=userService.exportUser(name,deptId);
+        PoiUtils.Export(response,name,deptId,export);
+
     }
 
     @RequiresPermissions("sys:user:resetPwd")

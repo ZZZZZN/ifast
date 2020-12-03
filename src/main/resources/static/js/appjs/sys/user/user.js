@@ -1,4 +1,5 @@
 var prefix = "/sys/user"
+var deptIdex='';
 $(function() {
 	var deptId = '';
 	getTreeData();
@@ -6,11 +7,14 @@ $(function() {
 });
 
 function ex() {
+	var deptId = '';
+	getTreeData();
+	// load(deptId)
 	/*var thisDLoc   =   document.location;*/
 	var hostport=document.location.host;
 	var name=$('#searchName').val();
 	// var predeptId=deptId;
-	location.href="http://"+hostport+"/sys/user/export"+name+"/"+deptId;
+	location.href="http://"+hostport+"/sys/user/export?name="+name+"&deptId="+deptIdex;
 	/*$.ajax({
 		type: "GET",
 		url:"/sys/user/export",
@@ -238,6 +242,7 @@ $('#jstree').on("changed.jstree", function(e, data) {
 				deptId : '',
 			}
 		}
+		deptIdex='';
 		$('#exampleTable').bootstrapTable('refresh', opt);
 	} else {
 		var opt = {
@@ -245,6 +250,7 @@ $('#jstree').on("changed.jstree", function(e, data) {
 				deptId : data.selected[0],
 			}
 		}
+		deptIdex=data.selected[0];
 		$('#exampleTable').bootstrapTable('refresh',opt);
 	}
 

@@ -38,9 +38,17 @@ import java.util.*;
 @AllArgsConstructor
 public class UserServiceImpl extends CoreServiceImpl<UserDao, UserDO> implements UserService {
 
-    private final UserRoleDao userRoleMapper;
-    private final DeptDao deptMapper;
+    private final UserRoleDao userRoleMapper ;
+    private final DeptDao deptMapper ;
     private final FileService sysFileService;
+
+//    private final UserService userService;
+
+    @Override
+    public List<UserDO> exportUser(String name, String deptId) {
+//        userService.exportUser(name,deptId);
+        return baseMapper.exportUser(name,deptId);
+    }
 
     @Override
     public UserDO selectById(Serializable id) {

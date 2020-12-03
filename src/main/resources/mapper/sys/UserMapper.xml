@@ -6,4 +6,34 @@
 	<select id="listAllDept" resultType="long">
 		select DISTINCT deptId from sys_user
 	</select>
+
+	<select id="exportUser" parameterType="java.lang.String" resultType="com.ifast.sys.domain.UserDO" >
+		select s.name AS name,d.name AS deptName, email,mobile,gmtCreate,gmtModified,o.name AS sexName,birth,liveAddress,hobby,
+		province,city,district,k.name AS 'rank',t.name AS nation,b.name AS political,idnumber,c.name AS bzszdw,
+		e.name AS bzlb,	f.name AS ryzt,g.name AS jrdwxs,jobStart,jrdwsj,h.name AS educationTop,j.name AS educationType,
+		school,l.name AS degreeTop,graduationTime,major,
+		title,titleTime,titleLeve from sys_user s left join sys_dept d on s.deptId=d.id
+		left join(select id,name from sys_dict where type='sex')o on s.sex=o.id
+		left join(select value,name from sys_dict where type='nation')t on s.nation=t.value
+		left join(select value,name from sys_dict where type='rank')k on s.rank=k.value
+		left join(select value,name from sys_dict where type='political')b on s.political=b.value
+		left join(select value,name from sys_dict where type='bzszdw')c on s.bzszdw=c.value
+		left join(select value,name from sys_dict where type='bzlb')e on s.bzlb=e.value
+		left join(select value,name from sys_dict where type='ryzt')f on s.ryzt=f.value
+		left join(select value,name from sys_dict where type='jrdwxs')g on s.jrdwxs=g.value
+		left join(select value,name from sys_dict where type='education_top')h on s.educationTop=h.value
+		left join(select value,name from sys_dict where type='education_type')j on s.educationType=j.value
+		left join(select value,name from sys_dict where type='degree_top')l on s.degreeTop=l.value
+		<where>
+			and s.status='1'
+			<if test="name != null and name != ''" >
+				and
+				s.name=#{name}
+			</if>
+			<if test="deptId != null and deptId != ''" >
+			and
+				s.deptId=#{deptId}
+			</if>
+		</where>
+	</select>
 </mapper>
