@@ -38,10 +38,10 @@ function load() {
 									checkbox : true
 								// 列表中显示复选框
 								},
-								{
+								/*{
 									field : 'id', // 列字段名
 									title : '序号' // 列标题
-								},
+								},*/
 								{
 									field : 'roleName',
 									title : '角色名'

@@ -27,7 +27,7 @@ public class MailJob implements Job {
         String[] to= new String[1];
         ToEmail toEmail=new ToEmail();
         //处理业务逻辑，获取需要发送邮件的事项和邮箱地址
-        to[0]="buildtest1202@163.com";
+        to[0]="1044890220@qq.com";
         toEmail.setTos(to);
         toEmail.setSubject("工作提醒");
         toEmail.setContent("请参照上一份邮件进行日常工作，完成后返回处理意见");

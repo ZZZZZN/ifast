@@ -18,14 +18,14 @@ var load = function() {
 						expandAll : false, // 是否全部展开
 						// toolbar : '#exampleToolbar',
 						columns : [
-								{
+								/*{
 									title : '编号',
 									field : 'id',
 									visible : false,
 									align : 'center',
 									valign : 'middle',
 									width : '50px'
-								},
+								},*/
 								{
 									title : '名称',
 									field : 'name'
