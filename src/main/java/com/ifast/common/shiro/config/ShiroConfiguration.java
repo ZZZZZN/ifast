@@ -137,7 +137,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/api/user/refresh", "anon");
         filterChainDefinitionMap.put("/api/**", "jwt");
         // email
-        filterChainDefinitionMap.put("/emil/**", "anon");
+        filterChainDefinitionMap.put("/email/**", "anon");
 
         filterChainDefinitionMap.put("/doc.html**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");

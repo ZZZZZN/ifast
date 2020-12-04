@@ -91,10 +91,10 @@ function load(deptId) {
 					{
 						checkbox : true
 					},
-					{
+					/*{
 						field : 'id', // 列字段名
 						title : '序号' // 列标题
-					},
+					},*/
 					{
 						field : 'name',
 						title : '姓名'
