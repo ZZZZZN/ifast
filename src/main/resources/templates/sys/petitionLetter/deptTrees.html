@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+
+		<div class="row">
+			<div class="col-sm-12">
+
+				<div class="ibox-content">
+					<div id="deptTree"></div>
+				</div>
+				<div class="form-group hidden">
+					<div class="col-sm-12 col-sm-offset-12">
+						<button type="submit" class="btn btn-primary">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			getTreeData()
+		});
+		function getTreeData() {
+			$.ajax({
+				type : "GET",
+				url : "/sys/dept/tree",
+				success : function(tree) {
+					loadTree(tree);
+				}
+			});
+		}
+		function loadTree(tree) {
+			$('#deptTree').jstree({
+				'core' : {
+					'data' : tree,
+					// "check_callback": true,
+					// 'multiple': false,
+				},
+				// "checkbox" : {
+				// 	"keep_selected_style" : false
+				// },
+				"plugins" : [ "search","checkbox" ],
+				"checkbox" : {
+					// "tie_selection": true,
+					"whole_node": false,
+					"three_state" : true
+				}
+			});
+			$('#deptTree').jstree().open_all();
+		}
+		$('#deptTree').on("changed.jstree", function(e, data) {
+			var treeNode = $('#deptTree').jstree(true).get_checked(true);
+			var value='';
+			var name='';
+			for (var a=0;a<treeNode.length;a++){
+				if(a==treeNode.length-1){
+					value=value+treeNode[a].id
+					name=name+treeNode[a].text
+				}else{
+					value=value+treeNode[a].id+","
+					name=name+treeNode[a].text+","
+				}
+
+
+			}
+		parent.loadDept(value,name);
+
+		});
+
+		// $('#deptTree').on("close_all.jstree", function(e, data) {
+		// 	if(data.node.id!=-1){
+		// 		parent.loadDept(data.node.id,data.node.text);
+		// 		var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+		// 	}
+		// });
+		
+	</script>
+</body>
+
+</html>

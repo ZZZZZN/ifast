@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifast.sys.dao.PetitionLetterDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+	<resultMap type="com.ifast.sys.domain.PetitionLetterNewDo" id="BaseResultMap">
+		<result property="id" column="id"/>
+		<result property="sourcepetition" column="sourcepetition"/>
+		<result property="petitiontime" column="petitiontime"/>
+		<result property="lettertitle" column="lettertitle"/>
+		<result property="content" column="content"/>
+		<result property="receiptno" column="receiptno"/>
+		<result property="deptno" column="deptno"/>
+		<result property="deptname" column="deptname"/>
+		<result property="receiver" column="receiver"/>
+		<result property="status" column="status"/>
+		<result property="receivetime" column="receivetime"/>
+		<result property="processtime" column="processtime"/>
+		<result property="actualreplytime" column="actualreplytime"/>
+		<result property="remindertime" column="remindertime"/>
+		<result property="isrecover" column="isrecover"/>
+		<result property="recovertime" column="recovertime"/>
+		<result property="remark" column="remark"/>
+	</resultMap>
+
+
+
+
+
+    <select id="selectAllList" parameterType="java.lang.String" resultType="com.ifast.sys.domain.PetitionLetterDO">
+        SELECT
+		s.id AS id,
+		t.NAME AS sourcePetition,
+		petitiontime,
+		lettertitle,
+		content,
+		receiptno,
+		GROUP_CONCAT(d.NAME) AS serviceDept,
+		GROUP_CONCAT(a.depid) AS deptid,
+		receiver,
+		STATUS,
+		receivetime,
+		processtime,
+		actualreplytime,
+		remindertime,
+		isrecover,
+		recovertime,
+		remark,
+		s.delflag AS delflag
+	FROM
+		sys_petition_letter s
+		LEFT JOIN ( SELECT VALUE, NAME FROM sys_dict WHERE type = 'source_ptittion' ) t ON s.sourcepetition = t.
+
+	VALUE
+		LEFT JOIN ( SELECT petitionid, depid FROM sys_association ) a ON s.id = a.petitionid
+		LEFT JOIN ( SELECT id, NAME FROM sys_dept ) d ON a.depid = d.id
+		<where>
+			and s.delflag='0'
+			<if test="name != null and name != ''" >
+				and receiver like  concat('%',#{name},'%')
+			</if>
+			<if test="deptId != null and deptId != ''" >
+				and
+				d.id=#{deptId}
+			</if>
+		</where>
+		GROUP BY s.id,t.name
+    </select>
+
+	<select id="selectOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT
+		s.id AS id,
+		t.value AS source,
+		t.NAME AS sourcepetition,
+		petitiontime,
+		lettertitle,
+		content,
+		receiptno,
+		GROUP_CONCAT( d.NAME ) AS deptname,
+		GROUP_CONCAT( a.depid ) AS deptno,
+		receiver,
+		STATUS,
+		receivetime,
+		processtime,
+		actualreplytime,
+		remindertime,
+		isrecover,
+		recovertime,
+		remark
+		FROM
+		sys_petition_letter s
+		LEFT JOIN ( SELECT VALUE, NAME FROM sys_dict WHERE type = 'source_ptittion' ) t ON s.sourcepetition = t.VALUE
+		LEFT JOIN ( SELECT petitionid, depid FROM sys_association ) a ON s.id = a.petitionid
+		LEFT JOIN ( SELECT id, NAME FROM sys_dept ) d ON a.depid = d.id
+		WHERE
+		s.id = #{id} AND s.delflag=0
+		GROUP BY
+		s.id,t.NAME
+	</select>
+
+</mapper>
