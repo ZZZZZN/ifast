@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifast.api.mapper.dao.UserInfodao">
+
+	<!--根据用户名获取用户信息-->
+
+	<select id="selectUserInfoByUserName" parameterType="java.lang.String" resultType="java.util.Map">
+           SELECT
+	a.id,
+	a.`name`,
+	username,
+	`password`,
+	salt,
+	b.NAME AS deptId,
+	email,
+	mobile,
+	`status`,
+	userIdCreate,
+	gmtCreate,
+	gmtModified,
+	sex,
+	birth,
+	picId,
+	liveAddress,
+	hobby,
+	province,
+	city,
+	district,
+	c.name as `rank`,
+	d.name as nation,
+	e.name as political,
+	idnumber,
+	f.name as bzszdw,
+	g.name as bzlb,
+	h.name as ryzt,
+	i.name as jrdwxs,
+	jobStart,
+	jrdwsj,
+	j.name as educationTop,
+	g.name as educationType,
+	school,
+	k.name as degreeTop,
+	graduationTime,
+	major,
+	title,
+	titleTime,
+	titleLeve
+FROM
+	sys_user a
+	LEFT JOIN sys_dept b ON a.deptId = b.id
+	LEFT JOIN (select value,name from sys_dict where type='rank') c on a.rank=c.value
+	LEFT JOIN (select value,name from sys_dict where type='nation') d on a.nation=d.value
+	LEFT JOIN (select value,name from sys_dict where type='political') e on a.political=e.value
+	LEFT JOIN (select value,name from sys_dict where type='bzszdw') f on a.bzszdw=f.value
+	LEFT JOIN (select value,name from sys_dict where type='bzlb') g on a.bzlb=g.value
+	LEFT JOIN (select value,name from sys_dict where type='ryzt') h on a.ryzt=h.value
+	LEFT JOIN (select value,name from sys_dict where type='educationTop') i on a.educationTop=i.value
+	LEFT JOIN (select value,name from sys_dict where type='educationType') j on a.educationType=j.value
+	LEFT JOIN (select value,name from sys_dict where type='degreeTop') k on a.degreeTop=k.value
+WHERE
+	a.id = #{username}
+	</select>
+
+	<!--根据类型获取字典-->
+	<select id="selectDictInfo" parameterType="java.lang.String" resultType="com.alibaba.fastjson.JSONObject">
+		select id,name as `value` from sys_dict where type =#{type}
+	</select>
+
+	<select id="selectDetpList" resultType="com.alibaba.fastjson.JSONObject">
+		select id,name as `value` from sys_dept where delFlag='-1'
+	</select>
+
+
+</mapper>

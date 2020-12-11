@@ -48,7 +48,7 @@ public class WxMsgController extends BaseController {
             throw new IllegalArgumentException("请求参数非法，请核实!");
         }
         
-        if (this.getWxService().checkSignature(timestamp, nonce, signature)) {
+        if (wxService.checkSignature(timestamp, nonce, signature)) {
             return echostr;
         }
         

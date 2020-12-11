@@ -37,15 +37,16 @@ public class JWTUtil {
 
 	public static String userPrimaryKey = SpringContextHolder.getBean(JWTConfigProperties.class).getUserPrimaryKey();
 
+	public static JWTConfigProperties config= SpringContextHolder.getBean(JWTConfigProperties.class);
 
     public static TokenVO createToken(UserDO user) {
         TokenVO vo = new TokenVO();
-        String token        = JWTUtil.sign(user.getId() + "", user.getUsername() + user.getPassword(), AppUserServiceImpl.Holder.jwtConfig.getExpireTime());
-        String refreshToken = JWTUtil.sign(user.getId() + "", user.getUsername() + user.getPassword(), AppUserServiceImpl.Holder.jwtConfig.getRefreshTokenExpire(), true);
+        String token        = JWTUtil.sign(user.getId() + "", user.getUsername() + user.getPassword(), config.getExpireTime());
+        String refreshToken = JWTUtil.sign(user.getId() + "", user.getUsername() + user.getPassword(), config.getRefreshTokenExpire(), true);
         vo.setToken(token);
         vo.setRefleshToken(refreshToken);
-        vo.setTokenExpire(AppUserServiceImpl.Holder.jwtConfig.getExpireTime());
-        vo.setRefreshTokenExpire(AppUserServiceImpl.Holder.jwtConfig.getRefreshTokenExpire());
+        vo.setTokenExpire(config.getExpireTime());
+        vo.setRefreshTokenExpire(config.getRefreshTokenExpire());
         return vo;
     }
 

@@ -70,7 +70,7 @@ public class JWTAuthenticationFilter extends AuthenticatingFilter {
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
 
-        String jwt = WebUtils.toHttp(request).getHeader(HEADER_AUTHORIZATION);
+        String jwt = WebUtils.toHttp(request).getHeader("zn-Token");
         if (StringUtils.isNotBlank(jwt) && !JWTUtil.isTokenExpired(jwt)) {
             return new JWTAuthenticationTokenToken(jwt);
         }

@@ -5,6 +5,8 @@ import com.ifast.common.base.CoreService;
 import com.ifast.sys.domain.UserDO;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
+import java.util.Map;
+
 /**
  * <pre>
  * </pre>
