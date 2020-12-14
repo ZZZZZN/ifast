@@ -18,7 +18,7 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for sys_petition_letter
+-- 增加 sys_petition_letter 表及相关权限数据
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_petition_letter`;
 CREATE TABLE `sys_petition_letter`  (
@@ -50,7 +50,7 @@ INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`,
 INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1334768190002520065, 1334677405680713730, '查看信访件', '/sys/petitionLetter/', '', 0, '', NULL, NULL, NULL);
 INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1337309248477417473, 1334768190002520065, '添加', '/sys/petitionLetter/add', 'sys:petitionLetter:add', 2, '', NULL, NULL, NULL);
 INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1337309427624529922, 1334768190002520065, '编辑', '/sys/petitionLetter/edit', 'sys:petitionLetter:edit', 2, '', NULL, NULL, NULL);
-INSERT INTO `ifast`.`sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1337309759511416834, 1334768190002520065, '删除', '/sys/petitionLetter/remove', 'sys:petitionLetter:remove', 2, '', NULL, NULL, NULL);
+INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1337309759511416834, 1334768190002520065, '删除', '/sys/petitionLetter/remove', 'sys:petitionLetter:remove', 2, '', NULL, NULL, NULL);
 
 
 INSERT INTO `sys_dict`(`id`, `name`, `value`, `type`, `description`, `sort`, `parentId`, `createBy`, `createDate`, `updateBy`, `updateDate`, `remarks`, `delFlag`) VALUES (1057113773140254860, '问政江西', '1', 'source_ptittion', '信访件来源', NULL, 0, NULL, NULL, NULL, NULL, NULL, '0');
@@ -77,7 +77,7 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for sys_association
+-- 增加 sys_association 表
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_association`;
 CREATE TABLE `sys_association`  (
@@ -94,10 +94,9 @@ CREATE TABLE `sys_association`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+
 
 -- ----------------------------
--- Table structure for sys_dept
+-- 为 sys_dept 表 添加 email 字段
 -- ----------------------------
 alter table sys_dept add email varchar(255) NULL DEFAULT NULL COMMENT '部门邮箱';
