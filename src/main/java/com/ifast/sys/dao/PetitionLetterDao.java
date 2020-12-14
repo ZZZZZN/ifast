@@ -6,6 +6,7 @@ import com.ifast.common.base.BaseDao;
 import com.ifast.sys.domain.PetitionLetterDO;
 import com.ifast.sys.domain.PetitionLetterNewDo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
 
-    List<PetitionLetterDO> selectAllList(@Param("name") String name, @Param("deptId")String deptId);
+    List<PetitionLetterDO> selectAllList(RowBounds var1, @Param("name") String name, @Param("deptId")String deptId);
 
     /**
      *根据id查询出一条数据

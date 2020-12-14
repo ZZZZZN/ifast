@@ -1,6 +1,8 @@
 package com.ifast.sys.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.SqlHelper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.ifast.sys.dao.PetitionLetterDao;
 import com.ifast.sys.domain.PetitionLetterDO;
 import com.ifast.sys.domain.PetitionLetterNewDo;
@@ -27,12 +29,28 @@ public class PetitionLetterServiceImpl extends CoreServiceImpl<PetitionLetterDao
 
     @Override
     public List<PetitionLetterDO> selectAllList(@Param("name") String name, @Param("deptId")String deptId) {
-        return baseMapper.selectAllList(name,deptId);
+        return null;
     }
 
 
     @Override
     public PetitionLetterNewDo selectOne(Long id) {
         return baseMapper.selectOne(id);
+    }
+
+    /**
+     * 分页查询实现类
+     * @param page
+     * @param para
+     * @return
+     */
+    @Override
+    public Page<PetitionLetterDO> selectPage(Page<PetitionLetterDO> page, Map para) {
+        EntityWrapper wrapper = new EntityWrapper();
+        SqlHelper.fillWrapper(page, wrapper);
+        String name=para.get("name").toString();
+        String deptId=para.get("deptId").toString();
+        page.setRecords(baseMapper.selectAllList(page,name,deptId));
+        return page;
     }
 }

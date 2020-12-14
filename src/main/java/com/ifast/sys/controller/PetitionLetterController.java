@@ -2,18 +2,23 @@ package com.ifast.sys.controller;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.ifast.api.service.AppUserService;
 import com.ifast.common.domain.DictDO;
 import com.ifast.common.service.DictService;
-import com.ifast.sys.domain.AssociationDO;
-import com.ifast.sys.domain.PetitionLetterDO;
-import com.ifast.sys.domain.PetitionLetterNewDo;
+import com.ifast.common.utils.ShiroUtils;
+import com.ifast.sys.domain.*;
+import com.ifast.sys.mail.entity.ToEmail;
+import com.ifast.sys.mail.support.ToEmailService;
 import com.ifast.sys.service.AssociationService;
+import com.ifast.sys.service.DeptService;
 import com.ifast.sys.service.PetitionLetterService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +36,7 @@ import com.ifast.common.base.BaseController;
 
 import com.ifast.common.utils.Result;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -48,7 +54,9 @@ public class PetitionLetterController extends BaseController {
 	@Autowired
 	private AssociationService associationService;
 	@Autowired
-	private DictService dictService;
+	private DeptService deptService;
+	@Autowired
+	private ToEmailService toEmailService;
 
 	private String preix="sys/petitionLetter";
 	
@@ -63,13 +71,17 @@ public class PetitionLetterController extends BaseController {
 //	@RequiresPermissions("sys:petitionLetter:petitionLetter")
 	public Result<Page<PetitionLetterDO>> list(PetitionLetterDO petitionLetterDTO, HttpServletRequest request){
 //        Wrapper<PetitionLetterDO> wrapper = new EntityWrapper<>(petitionLetterDTO).orderBy("id", false);
-//        Page<PetitionLetterDO> page = petitionLetterService.selectPage(getPage(PetitionLetterDO.class), wrapper);
+
+		UserDO user= ShiroUtils.getSysUser();
 		String name=request.getParameter("name");
-		String deptId=request.getParameter("deptId");
-        Page<PetitionLetterDO> page = petitionLetterService.selectPage(getPage(PetitionLetterDO.class));
-		List<PetitionLetterDO> list=petitionLetterService.selectAllList(name,deptId);
-		page.setRecords(list);
-//        page.setCondition(petitionLetterService.selectAllList());
+		String deptId="";
+		if(!user.getUsername().equals("admin")){
+			deptId=user.getDeptId().toString();
+		}
+         Map para =new HashMap();
+		para.put("name",name);
+		para.put("deptId",deptId);
+		Page<PetitionLetterDO> page = petitionLetterService.selectPage(getPage(PetitionLetterDO.class),para);
         return Result.ok(page);
 	}
 	
@@ -94,15 +106,32 @@ public class PetitionLetterController extends BaseController {
 	@RequiresPermissions("sys:petitionLetter:add")
 	public Result<String> save( PetitionLetterDO petitionLetter){
 		String deptId=petitionLetter.getServiceDept();
+
 		String arr[]=deptId.split(",");
 		petitionLetterService.insert(petitionLetter);
-
 		for (int i=0;i<arr.length;i++){
 			AssociationDO association=new AssociationDO();
 			association.setDepid(Integer.valueOf(arr[i]));
 			association.setPetitionid(petitionLetter.getId());
 			associationService.insert(association);
 		}
+
+		for (int i=0;i<arr.length;i++){
+			String[] to= new String[1];
+			ToEmail toEmail=new ToEmail();
+			DeptDO deptDO=deptService.selectById(arr[i]);
+			//处理业务逻辑，获取需要发送邮件的事项和邮箱地址
+			to[0]=deptDO.getEmail();
+			toEmail.setTos(to);
+			toEmail.setSubject(petitionLetter.getLettertitle()+"(新收到信访件)");
+			toEmail.setContent(petitionLetter.getContent());
+			try {
+				toEmailService.commonEmail(toEmail);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		}
+
         return Result.ok();
 	}
 	

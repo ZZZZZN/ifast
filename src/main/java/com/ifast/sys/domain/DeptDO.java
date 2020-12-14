@@ -20,6 +20,8 @@ public class DeptDO implements Serializable {
     private Long parentId;
     // 部门名称
     private String name;
+    //部门邮箱
+    private String email;
     // 排序
     private Integer orderNum;
     // 是否删除 -1：已删除 0：正常
@@ -87,6 +89,14 @@ public class DeptDO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

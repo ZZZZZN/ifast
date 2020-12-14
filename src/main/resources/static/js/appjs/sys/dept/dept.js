@@ -37,6 +37,10 @@ function load() {
 						title : '排序'
 					},
 					{
+						field : 'email',
+						title : '邮箱'
+					},
+					{
 						field : 'delFlag',
 						title : '状态',
 						align : 'center',
