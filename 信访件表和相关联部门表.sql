@@ -100,3 +100,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- 为 sys_dept 表 添加 email 字段
 -- ----------------------------
 alter table sys_dept add email varchar(255) NULL DEFAULT NULL COMMENT '部门邮箱';
+
+
+
+
+
+-- 脚本已执行
