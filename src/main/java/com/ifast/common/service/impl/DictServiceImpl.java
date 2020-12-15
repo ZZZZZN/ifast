@@ -6,6 +6,7 @@ import com.ifast.common.domain.DictDO;
 import com.ifast.common.service.DictService;
 import com.ifast.sys.domain.UserDO;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,10 +1,8 @@
 package com.ifast.sys.controller;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
@@ -57,6 +55,8 @@ public class PetitionLetterController extends BaseController {
 	private DeptService deptService;
 	@Autowired
 	private ToEmailService toEmailService;
+	@Autowired
+	private DictService dictService;
 
 	private String preix="sys/petitionLetter";
 	
@@ -106,16 +106,26 @@ public class PetitionLetterController extends BaseController {
 	@RequiresPermissions("sys:petitionLetter:add")
 	public Result<String> save( PetitionLetterDO petitionLetter){
 		String deptId=petitionLetter.getServiceDept();
-
 		String arr[]=deptId.split(",");
+		String deptName="";
 		petitionLetterService.insert(petitionLetter);
 		for (int i=0;i<arr.length;i++){
+			DeptDO deptDO=deptService.selectById(arr[i]);
+			deptName+=deptDO.getName()+",";
 			AssociationDO association=new AssociationDO();
 			association.setDepid(Integer.valueOf(arr[i]));
 			association.setPetitionid(petitionLetter.getId());
 			associationService.insert(association);
 		}
-
+		List<DictDO>dic=dictService.listType();
+		String source="";
+		for (int i=0;i<dic.size();i++){
+			DictDO dictDO=(DictDO)dic.get(i);
+			if("source_ptittion".equalsIgnoreCase(dictDO.getType())&&petitionLetter.getSourcepetition().toString().equals(dictDO.getValue())){
+				source+=dictDO.getName();
+			}
+		}
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
 		for (int i=0;i<arr.length;i++){
 			String[] to= new String[1];
 			ToEmail toEmail=new ToEmail();
@@ -123,15 +133,16 @@ public class PetitionLetterController extends BaseController {
 			//处理业务逻辑，获取需要发送邮件的事项和邮箱地址
 			to[0]=deptDO.getEmail();
 			toEmail.setTos(to);
-			toEmail.setSubject(petitionLetter.getLettertitle()+"(新收到信访件)");
-			toEmail.setContent(petitionLetter.getContent());
+			toEmail.setSubject(petitionLetter.getLettertitle()+"：收到新信访件,请及时回复");
+			toEmail.setContent("【南康区住建智慧政务平台提醒】,您收到来自:"+source+"的信访件，交办人为："
+					+petitionLetter.getReceiver()+",交办科室有："+deptName+"\n 收到信访时间为:"
+					+simpleDateFormat.format(petitionLetter.getPetitiontime())+",\n请尽快登录您的政务平台处理。");
 			try {
 				toEmailService.commonEmail(toEmail);
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
 		}
-
         return Result.ok();
 	}
 	
