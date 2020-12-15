@@ -201,7 +201,7 @@ public class PetitionLetterController extends BaseController {
 	 */
 	@GetMapping("/treeViews")
 	String treeViews() {
-		return "/sys/petitionLetter/deptTrees";
+		return "sys/petitionLetter/deptTrees";
 	}
 	
 }
