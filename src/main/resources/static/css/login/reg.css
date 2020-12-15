@@ -1,7 +1,9 @@
 @charset "utf-8";
 body{
-    background-color: #2074BB;
-    /*background-image: url('background.png');*/
+    /*background-color: #2074BB;*/
+    background-image: url('zhujian.png');
+    background-repeat: no-repeat;
+    background-position: 88%
 }
 .wrap{
     box-sizing: border-box;
@@ -12,13 +14,13 @@ body{
 .form-data{
     background-color: #ffffff;
     width: 520px;
-    left: 47%;
+    /*left: 47%;*/
     margin-left: -230px;
     border-radius: 5px;
     box-shadow: 0 0 30px rgba(0,0,0,.1);
     padding: 150px 0 30px 0;
     position: fixed;
-    top: 15%;
+    top: 27%;
 }
 .form-data .tel-warn{
     position: absolute;
