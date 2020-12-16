@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifast.api.mapper.dao.AcceptDatadao">
+	<!--插入草料接入数据主体-->
+	<insert id="insertData" parameterType="com.alibaba.fastjson.JSONObject">
+	 insert into accept_data (record_id,code_id,tpl_id,add_time,recorder)
+	             values (#{record_id},#{code_id},#{tpl_id},#{add_time},#{recorder})
+	</insert>
+
+	<!--插入草料接入数据主体-->
+	<insert id="insertDataDetail" parameterType="java.util.List">
+	 insert into accept_data_detail (record_id,field_id,title,`type`,`value`)
+	             values
+	             <foreach collection="list" item="data" separator=",">
+	             (#{data.record_id},#{data.field_id},#{data.title},#{data.type},#{data.value})
+				</foreach>
+	</insert>
+
+
+</mapper>

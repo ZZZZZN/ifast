@@ -15,6 +15,9 @@ public class Result<T> {
     public final static Integer CODE_FAIL = 1;
     public final static String MSG_SUCCESS = "操作成功";
     public final static String MSG_FAIL = "操作失败";
+    public final static Integer CODE_ACCEPT = 200;
+    public final static String CODE_ACCEPT_MESSAGE = "数据接收成功";
+
 
     // 响应业务状态 0 成功， 1失败
     private Integer code;
@@ -39,6 +42,10 @@ public class Result<T> {
 
     public static <T> Result<T> fail() {
         return new Result<T>(CODE_FAIL, MSG_FAIL, null);
+    }
+
+    public static <T> Result<T> accetp_ok() {
+        return new Result<T>(CODE_ACCEPT, CODE_ACCEPT_MESSAGE, null);
     }
 
     public Result() {
