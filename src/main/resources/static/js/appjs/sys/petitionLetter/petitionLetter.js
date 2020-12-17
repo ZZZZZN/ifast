@@ -3,7 +3,7 @@ var prefix = "/sys/petitionLetter"
 
 $(function() {
 	var deptId = '';
-	getTreeData();
+	// getTreeData();
 	load(deptId);
 });
 
@@ -69,7 +69,11 @@ function load(deptId) {
 								},
 																{
 									field : 'petitiontime',
-									title : '信访时间'
+									title : '信访时间',
+										formatter: function (data) {
+										var time = data.substring(0,10);
+										return time;
+																	}
 								},
 								// 								{
 								// 	field : 'lettertitle',
@@ -81,7 +85,11 @@ function load(deptId) {
 								},
 								{
 									field : 'receivetime',
-									title : '收文时间'
+									title : '收文时间',
+									formatter: function (data) {
+										var time = data.substring(0,10);
+										return time;
+									}
 								},
 																{
 									field : 'receiptno',
@@ -106,11 +114,25 @@ function load(deptId) {
 								},
 								{
 									field: "processtime",
-									title: '规定回复时间'
+									title: '规定回复时间',
+									formatter: function (data) {
+										if(data!=null){
+											var time = data.substring(0,10);
+											return time;
+										}
+
+									}
 								},
 								{
 									field: "acceptancetime",
-									title: '上传受理告知书时间'
+									title: '上传受理告知书时间',
+									formatter: function (data) {
+										if(data!=null){
+											var time = data.substring(0,10);
+											return time;
+										}
+
+									}
 								},
 
 
@@ -134,12 +156,20 @@ function load(deptId) {
 								// },
 																{
 									field : 'recovertime',
-									title : '收回时间'
+									title : '收回时间',
+																	formatter: function (data) {
+																		if(data!=null){
+																			var time = data.substring(0,10);
+																			return time;
+																		}
+
+																	}
+
 								},
-								// 								{
-								// 	field : 'remark',
-								// 	title : '备注'
-								// },
+																{
+									field : 'remark',
+									title : '备注'
+								},
 								// 								{
 								// 	field : 'delflag',
 								// 	title : '逻辑删除(0:表示不删除，1表示逻辑删除)'
@@ -247,42 +277,42 @@ function batchRemove() {
 	});
 }
 //部门
-function loadTree(tree) {
-	$('#jstree').jstree({
-		'core' : {
-			'data' : tree
-		},
-		"plugins" : [ "search","checkbox"]
-	});
-	$('#jstree').jstree().open_all();
-}
-$('#jstree').on("changed.jstree", function(e, data) {
-	if (data.selected == -1) {
-		var opt = {
-			query : {
-				deptId : '',
-			}
-		}
-		deptIdex='';
-		$('#exampleTable').bootstrapTable('refresh', opt);
-	} else {
-		var opt = {
-			query : {
-				deptId : data.selected[0],
-			}
-		}
-		deptIdex=data.selected[0];
-		$('#exampleTable').bootstrapTable('refresh',opt);
-	}
-
-});
-
-function getTreeData() {
-	$.ajax({
-		type : "GET",
-		url : "/sys/dept/tree",
-		success : function(tree) {
-			loadTree(tree);
-		}
-	});
-}
+// function loadTree(tree) {
+// 	$('#jstree').jstree({
+// 		'core' : {
+// 			'data' : tree
+// 		},
+// 		"plugins" : [ "search","checkbox"]
+// 	});
+// 	$('#jstree').jstree().open_all();
+// }
+// $('#jstree').on("changed.jstree", function(e, data) {
+// 	if (data.selected == -1) {
+// 		var opt = {
+// 			query : {
+// 				deptId : '',
+// 			}
+// 		}
+// 		deptIdex='';
+// 		$('#exampleTable').bootstrapTable('refresh', opt);
+// 	} else {
+// 		var opt = {
+// 			query : {
+// 				deptId : data.selected[0],
+// 			}
+// 		}
+// 		deptIdex=data.selected[0];
+// 		$('#exampleTable').bootstrapTable('refresh',opt);
+// 	}
+//
+// });
+//
+// function getTreeData() {
+// 	$.ajax({
+// 		type : "GET",
+// 		url : "/sys/dept/tree",
+// 		success : function(tree) {
+// 			loadTree(tree);
+// 		}
+// 	});
+// }

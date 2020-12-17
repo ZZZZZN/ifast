@@ -32,20 +32,19 @@
 		SELECT
 		s.id AS id,
 		t.NAME AS sourcePetition,
-		petitiontime,
+		DATE_FORMAT(petitiontime,'%Y-%m-%d') AS petitiontime,
 		content,
 		receiptno,
 		GROUP_CONCAT(d.NAME) AS serviceDept,
 		GROUP_CONCAT(a.depid) AS deptid,
 		STATUS,
-		receivetime,
-		processtime,
-		actualreplytime,
-		acceptancetime,
+		DATE_FORMAT(receivetime,'%Y-%m-%d') AS receivetime,
+		DATE_FORMAT(processtime,'%Y-%m-%d') AS processtime,
+		DATE_FORMAT(actualreplytime,'%Y-%m-%d') AS actualreplytime,
+		DATE_FORMAT(acceptancetime,'%Y-%m-%d') AS acceptancetime,
 		isrecover,
-		recovertime,
-		remark,
-		s.delflag AS delflag
+		DATE_FORMAT(recovertime,'%Y-%m-%d') AS recovertime,
+		remark
 		FROM
 		sys_petition_letter s
 		LEFT JOIN ( SELECT VALUE, NAME FROM sys_dict WHERE type = 'source_ptittion' ) t ON s.sourcepetition = t.VALUE

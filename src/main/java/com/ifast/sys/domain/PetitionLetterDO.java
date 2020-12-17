@@ -10,6 +10,7 @@ import com.ifast.common.base.BaseDO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 
@@ -35,6 +36,7 @@ public class PetitionLetterDO implements Serializable {
     private String sourcePetition;
 
     /** 信访时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date petitiontime;
 
 //    /** 信访标题 */
@@ -66,24 +68,29 @@ public class PetitionLetterDO implements Serializable {
     private Integer status;
 
     /** 收文时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date receivetime;
 
     /** 规定回复时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date processtime;
 
     /** 实际回复时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date actualreplytime;
 //
 //    /** 提醒时间 */
 //    private Date remindertime;
 
     /** 上传受理告知书时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date acceptancetime;
 
     /** 是否收回 */
     private Integer isrecover;
 
     /** 收回时间 */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date recovertime;
 
     /** 备注 */

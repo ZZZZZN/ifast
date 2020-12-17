@@ -34,7 +34,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">信访时间(必填)：</label>
 								<div class="col-sm-8">
-									<input id="petitiontime" name="petitiontime" th:value="${petitionLetter.petitiontime} eq null ? '' : ${#dates.format(petitionLetter.petitiontime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="form-control" type="text">
+									<input id="petitiontime" name="petitiontime" readonly="readonly" th:value="${petitionLetter.petitiontime} eq null ? '' : ${#dates.format(petitionLetter.petitiontime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 <!--							<div class="form-group">-->
@@ -82,25 +82,25 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">收文时间(必填)：</label>
 								<div class="col-sm-8">
-									<input id="receivetime" name="receivetime" th:value="${petitionLetter.receivetime} eq null ? '' : ${#dates.format(petitionLetter.receivetime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="form-control" type="text">
+									<input id="receivetime" name="receivetime" readonly="readonly" th:value="${petitionLetter.receivetime} eq null ? '' : ${#dates.format(petitionLetter.receivetime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">规定回复时间(必填)：</label>
 								<div class="col-sm-8">
-									<input id="processtime" name="processtime" th:value="${petitionLetter.processtime} eq null ? '' : ${#dates.format(petitionLetter.processtime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="form-control" type="text">
+									<input id="processtime" name="processtime" readonly="readonly" th:value="${petitionLetter.processtime} eq null ? '' : ${#dates.format(petitionLetter.processtime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">实际回复时间：</label>
 								<div class="col-sm-8">
-									<input id="actualreplytime" name="actualreplytime" th:value="${petitionLetter.actualreplytime} eq null ? '' : ${#dates.format(petitionLetter.actualreplytime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="form-control" type="text">
+									<input id="actualreplytime" name="actualreplytime" readonly="readonly" th:value="${petitionLetter.actualreplytime} eq null ? '' : ${#dates.format(petitionLetter.actualreplytime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">上传受理告知书时间：</label>
 								<div class="col-sm-8">
-									<input id="acceptancetime" name="acceptancetime" th:value="${petitionLetter.acceptancetime} eq null ? '' : ${#dates.format(petitionLetter.acceptancetime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="form-control" type="text">
+									<input id="acceptancetime" name="acceptancetime" readonly="readonly" th:value="${petitionLetter.acceptancetime} eq null ? '' : ${#dates.format(petitionLetter.acceptancetime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
@@ -118,7 +118,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">收回时间：</label>
 								<div class="col-sm-8">
-									<input id="recovertime" name="recovertime" th:value="${petitionLetter.recovertime} eq null ? '' : ${#dates.format(petitionLetter.recovertime, 'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" class="form-control" type="text">
+									<input id="recovertime" name="recovertime" readonly="readonly" th:value="${petitionLetter.recovertime} eq null ? '' : ${#dates.format(petitionLetter.recovertime, 'yyyy-MM-dd')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control" type="text">
 								</div>
 							</div>
 							<div class="form-group">
