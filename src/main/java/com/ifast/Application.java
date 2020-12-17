@@ -1,5 +1,6 @@
 package com.ifast;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.ifast.common.config.IFastProperties;
 import com.ifast.common.utils.SpringContextHolder;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ServletComponentScan
 @MapperScan("com.ifast.**.dao")
-@SpringBootApplication
+@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 public class Application {
 	
 	private static Logger log = LoggerFactory.getLogger(Application.class);

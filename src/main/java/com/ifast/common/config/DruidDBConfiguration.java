@@ -19,7 +19,7 @@ import java.sql.SQLException;
 /**
  * Created by PrimaryKey on 17/2/4.
  */
-@Configuration
+
 public class DruidDBConfiguration {
     private Logger logger = LoggerFactory.getLogger(DruidDBConfiguration.class);
     @Autowired(required = false)
