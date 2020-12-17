@@ -101,8 +101,54 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ----------------------------
 alter table sys_dept add email varchar(255) NULL DEFAULT NULL COMMENT '部门邮箱';
 
+-- ----------------------------
+-- 为 sys_petition_letter 表 删除 lettertitle, receiver字段
+-- ----------------------------
+ALTER TABLE `sys_petition_letter`
+DROP COLUMN `lettertitle`,
+DROP COLUMN `receiver`,
+DROP COLUMN `remindertime`,
+ADD COLUMN `acceptancetime` datetime(0) NULL COMMENT '上传受理告知书时间' AFTER `isrecover`;
 
 
 
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for wall_chart_operation
+-- ----------------------------
+DROP TABLE IF EXISTS `wall_chart_operation`;
+CREATE TABLE `wall_chart_operation`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `projectname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目名称',
+  `constructionunit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '施工单位、项目负责人、联系电话',
+  `projectaddress` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '项目地址',
+  `existisecurity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '存在安全隐患',
+  `measures` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '整改措施',
+  `rectificationtime` datetime(0) NULL DEFAULT NULL COMMENT '整改时间',
+  `cancellation` tinyint(0) NULL DEFAULT NULL COMMENT '整改情况（）',
+  `mainleader` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主要领导',
+  `leadercharge` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分管领导及电话',
+  `department` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '整改科室负责人及电话',
+  `supervise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '整改监督组负责人及电话',
+  `delflag` tinyint(0) NULL DEFAULT 0 COMMENT '逻辑删除(0:未删除  1:逻辑删除)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '挂图作战表' ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- 挂图作战菜单插入语句
+-- ----------------------------
+INSERT INTO `sys_menu`(`id`, `parentId`, `name`, `url`, `perms`, `type`, `icon`, `orderNum`, `gmtCreate`, `gmtModified`) VALUES (1339136401678524417, 0, '挂图作战', '', '', 0, 'fa fa-hourglass-2', NULL, NULL, NULL);
+
+
+-- ----------------------------
+-- 挂图作战字典表插入语句
+-- ----------------------------
+INSERT INTO `sys_dict`(`id`, `name`, `value`, `type`, `description`, `sort`, `parentId`, `createBy`, `createDate`, `updateBy`, `updateDate`, `remarks`, `delFlag`) VALUES (1339384034401599489, '未销案', '0', 'cancellation', '挂图作战销案情况', NULL, 0, NULL, NULL, NULL, NULL, '', '0');
+INSERT INTO `sys_dict`(`id`, `name`, `value`, `type`, `description`, `sort`, `parentId`, `createBy`, `createDate`, `updateBy`, `updateDate`, `remarks`, `delFlag`) VALUES (1339384284466003969, '已销案', '1', 'cancellation', '挂图作战销案情况', NULL, 0, NULL, NULL, NULL, NULL, '', '0');
 
 -- 脚本已执行

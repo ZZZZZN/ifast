@@ -111,34 +111,34 @@ public class PetitionLetterController extends BaseController {
 		petitionLetterService.insert(petitionLetter);
 		for (int i=0;i<arr.length;i++){
 			DeptDO deptDO=deptService.selectById(arr[i]);
-			deptName+=deptDO.getName()+",";
+			if("".equals(deptName)){
+				deptName=deptDO.getName();
+			}else {
+				deptName+=","+deptDO.getName();
+			}
 			AssociationDO association=new AssociationDO();
 			association.setDepid(Integer.valueOf(arr[i]));
 			association.setPetitionid(petitionLetter.getId());
 			associationService.insert(association);
 		}
-		List<DictDO>dic=dictService.listType();
-		String source="";
-		for (int i=0;i<dic.size();i++){
-			DictDO dictDO=(DictDO)dic.get(i);
-			if("source_ptittion".equalsIgnoreCase(dictDO.getType())&&petitionLetter.getSourcepetition().toString().equals(dictDO.getValue())){
-				source+=dictDO.getName();
-			}
-		}
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") ;
+		String source=dictService.getName("source_ptittion",petitionLetter.getSourcepetition().toString());
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		for (int i=0;i<arr.length;i++){
 			String[] to= new String[1];
 			ToEmail toEmail=new ToEmail();
 			DeptDO deptDO=deptService.selectById(arr[i]);
 			//处理业务逻辑，获取需要发送邮件的事项和邮箱地址
+			String time=simpleDateFormat.format(petitionLetter.getPetitiontime());
 			to[0]=deptDO.getEmail();
 			toEmail.setTos(to);
-			toEmail.setSubject(petitionLetter.getLettertitle()+"：收到新信访件,请及时回复");
-			toEmail.setContent("【南康区住建智慧政务平台提醒】,您收到来自:"+source+"的信访件，交办人为："
-					+petitionLetter.getReceiver()+",交办科室有："+deptName+"\n 收到信访时间为:"
-					+simpleDateFormat.format(petitionLetter.getPetitiontime())+",\n请尽快登录您的政务平台处理。");
+			toEmail.setSubject("工作提醒");
+//			String content ="【南康住建智慧政务平台提醒】,您收到来自:"+source+"的信访件"
+//							+"交办科室有："+deptName+"收到信访时间为:"+time
+//							+",请尽快登录您的政务平台处理.";
+			String content="请参照上一份邮件进行日常工作，完成后返回处理意见";
+			toEmail.setContent(content);
 			try {
-				toEmailService.commonEmail(toEmail);
+				toEmailService.htmlEmail(toEmail);
 			} catch (MessagingException e) {
 				e.printStackTrace();
 			}
@@ -157,15 +157,13 @@ public class PetitionLetterController extends BaseController {
 		petitionLetterDO.setId(petitionLetterNewDo.getId());
 		petitionLetterDO.setSourcepetition(Integer.valueOf(petitionLetterNewDo.getSourcepetition()));
 		petitionLetterDO.setPetitiontime(petitionLetterNewDo.getPetitiontime());
-		petitionLetterDO.setLettertitle(petitionLetterNewDo.getLettertitle());
 		petitionLetterDO.setContent(petitionLetterNewDo.getContent());
 		petitionLetterDO.setReceiptno(petitionLetterNewDo.getReceiptno());
-		petitionLetterDO.setReceiver(petitionLetterNewDo.getReceiver());
 		petitionLetterDO.setStatus(petitionLetterNewDo.getStatus());
 		petitionLetterDO.setReceivetime(petitionLetterNewDo.getReceivetime());
 		petitionLetterDO.setProcesstime(petitionLetterNewDo.getProcesstime());
 		petitionLetterDO.setActualreplytime(petitionLetterNewDo.getActualreplytime());
-		petitionLetterDO.setRemindertime(petitionLetterNewDo.getRemindertime());
+		petitionLetterDO.setAcceptancetime(petitionLetterNewDo.getAcceptancetime());
 		petitionLetterDO.setIsrecover(petitionLetterNewDo.getIsrecover());
 		petitionLetterDO.setRecovertime(petitionLetterNewDo.getRecovertime());
 		petitionLetterDO.setRemark(petitionLetterNewDo.getRemark());
@@ -196,6 +194,9 @@ public class PetitionLetterController extends BaseController {
 		associationService.deleteAll(id);
         return Result.ok();
 	}
+
+
+
 	
 //	@Log("批量删除")
 //	@PostMapping( "/batchRemove")

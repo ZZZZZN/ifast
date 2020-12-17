@@ -29,30 +29,26 @@
 
 
     <select id="selectAllList" parameterType="java.lang.String" resultType="com.ifast.sys.domain.PetitionLetterDO">
-        SELECT
+		SELECT
 		s.id AS id,
 		t.NAME AS sourcePetition,
 		petitiontime,
-		lettertitle,
 		content,
 		receiptno,
 		GROUP_CONCAT(d.NAME) AS serviceDept,
 		GROUP_CONCAT(a.depid) AS deptid,
-		receiver,
 		STATUS,
 		receivetime,
 		processtime,
 		actualreplytime,
-		remindertime,
+		acceptancetime,
 		isrecover,
 		recovertime,
 		remark,
 		s.delflag AS delflag
-	FROM
+		FROM
 		sys_petition_letter s
-		LEFT JOIN ( SELECT VALUE, NAME FROM sys_dict WHERE type = 'source_ptittion' ) t ON s.sourcepetition = t.
-
-	VALUE
+		LEFT JOIN ( SELECT VALUE, NAME FROM sys_dict WHERE type = 'source_ptittion' ) t ON s.sourcepetition = t.VALUE
 		LEFT JOIN ( SELECT petitionid, depid FROM sys_association ) a ON s.id = a.petitionid
 		LEFT JOIN ( SELECT id, NAME FROM sys_dept ) d ON a.depid = d.id
 		<where>
@@ -74,17 +70,15 @@
 		t.value AS source,
 		t.NAME AS sourcepetition,
 		petitiontime,
-		lettertitle,
 		content,
 		receiptno,
 		GROUP_CONCAT( d.NAME ) AS deptname,
 		GROUP_CONCAT( a.depid ) AS deptno,
-		receiver,
 		STATUS,
 		receivetime,
 		processtime,
 		actualreplytime,
-		remindertime,
+		acceptancetime,
 		isrecover,
 		recovertime,
 		remark
@@ -97,6 +91,34 @@
 		s.id = #{id} AND s.delflag=0
 		GROUP BY
 		s.id,t.NAME
+	</select>
+
+	<select id="selectRemind" resultType="com.ifast.sys.domain.PetitionLetterNewDo">
+		SELECT
+		s.id AS id,
+		petitiontime,
+		content,
+		receiptno,
+		GROUP_CONCAT( d.NAME ) AS deptname,
+		GROUP_CONCAT( a.depid ) AS deptno,
+		GROUP_CONCAT( d.email ) AS email,
+		receivetime,
+		processtime,
+		actualreplytime,
+		acceptancetime,
+		recovertime,
+		remark
+		FROM
+		sys_petition_letter s
+		LEFT JOIN ( SELECT petitionid, depid FROM sys_association ) a ON s.id = a.petitionid
+		LEFT JOIN ( SELECT id, NAME, email FROM sys_dept ) d ON a.depid = d.id
+		WHERE
+		STATUS = 0
+		AND s.delflag = 0
+		AND isrecover = 0
+		AND processtime IS NOT NULL
+		GROUP BY
+		s.id
 	</select>
 
 </mapper>

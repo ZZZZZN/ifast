@@ -38,7 +38,10 @@ public interface PetitionLetterService  extends CoreService<PetitionLetterDO>{
      * @return
      */
     Page<PetitionLetterDO> selectPage(Page<PetitionLetterDO> page,Map para);
-
+    /**
+     * 为定时任务做查询
+     */
+    List<PetitionLetterNewDo> selectRemind();
 
 
 }

@@ -53,4 +53,9 @@ public class PetitionLetterServiceImpl extends CoreServiceImpl<PetitionLetterDao
         page.setRecords(baseMapper.selectAllList(page,name,deptId));
         return page;
     }
+
+    @Override
+    public List<PetitionLetterNewDo> selectRemind() {
+        return baseMapper.selectRemind();
+    }
 }

@@ -37,8 +37,8 @@ public class PetitionLetterDO implements Serializable {
     /** 信访时间 */
     private Date petitiontime;
 
-    /** 信访标题 */
-    private String lettertitle;
+//    /** 信访标题 */
+//    private String lettertitle;
 
     /** 信访内容 */
     private String content;
@@ -59,8 +59,8 @@ public class PetitionLetterDO implements Serializable {
     @TableField(exist = false)
     private String serviceDeptName;
 
-    /** 交办人 */
-    private String receiver;
+//    /** 交办人 */
+//    private String receiver;
 
     /** 处理状态（0：未处理 1：已处理） */
     private Integer status;
@@ -73,9 +73,12 @@ public class PetitionLetterDO implements Serializable {
 
     /** 实际回复时间 */
     private Date actualreplytime;
+//
+//    /** 提醒时间 */
+//    private Date remindertime;
 
-    /** 提醒时间 */
-    private Date remindertime;
+    /** 上传受理告知书时间 */
+    private Date acceptancetime;
 
     /** 是否收回 */
     private Integer isrecover;
@@ -113,13 +116,7 @@ public class PetitionLetterDO implements Serializable {
         this.petitiontime = petitiontime;
     }
 
-    public String getLettertitle() {
-        return lettertitle;
-    }
 
-    public void setLettertitle(String lettertitle) {
-        this.lettertitle = lettertitle;
-    }
 
     public String getContent() {
         return content;
@@ -145,13 +142,7 @@ public class PetitionLetterDO implements Serializable {
         this.servicedept = servicedept;
     }
 
-    public String getReceiver() {
-        return receiver;
-    }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
 
     public Integer getStatus() {
         return status;
@@ -185,13 +176,7 @@ public class PetitionLetterDO implements Serializable {
         this.actualreplytime = actualreplytime;
     }
 
-    public Date getRemindertime() {
-        return remindertime;
-    }
 
-    public void setRemindertime(Date remindertime) {
-        this.remindertime = remindertime;
-    }
 
     public Integer getIsrecover() {
         return isrecover;
@@ -257,6 +242,11 @@ public class PetitionLetterDO implements Serializable {
         this.serviceDept = serviceDept;
     }
 
+    public Date getAcceptancetime() {
+        return acceptancetime;
+    }
 
-
+    public void setAcceptancetime(Date acceptancetime) {
+        this.acceptancetime = acceptancetime;
+    }
 }

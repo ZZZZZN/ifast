@@ -30,6 +30,8 @@ public class PetitionLetterNewDo implements Serializable {
     /** 收文编号 */
     public String receiptno;
 
+    public String email;
+
     /** 交办科室 */
 
     public String deptno;
@@ -54,6 +56,9 @@ public class PetitionLetterNewDo implements Serializable {
 
     /** 提醒时间 */
     public Date remindertime;
+
+    /** 上传受理告知书时间 */
+    private Date acceptancetime;
 
     /** 是否收回 */
     public Integer isrecover;
@@ -218,5 +223,21 @@ public class PetitionLetterNewDo implements Serializable {
 
     public void setDelflag(Integer delflag) {
         this.delflag = delflag;
+    }
+
+    public Date getAcceptancetime() {
+        return acceptancetime;
+    }
+
+    public void setAcceptancetime(Date acceptancetime) {
+        this.acceptancetime = acceptancetime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

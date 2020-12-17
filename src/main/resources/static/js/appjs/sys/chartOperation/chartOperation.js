@@ -1,13 +1,11 @@
 
-var prefix = "/sys/petitionLetter"
-
+var prefix = "/sys/chartOperation"
 $(function() {
-	var deptId = '';
-	getTreeData();
-	load(deptId);
+
+	load();
 });
 
-function load(deptId) {
+function load() {
 	$('#exampleTable')
 			.bootstrapTable(
 					{
@@ -35,9 +33,7 @@ function load(deptId) {
 							return {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 							     pageNumber : params.pageNumber,
-								 pageSize : params.pageSize,
-								 name : $('#searchName').val(),
-								 deptId : deptId
+                                  pageSize : params.pageSize  
 					           // name:$('#searchName').val(),
 					           // username:$('#searchName').val()
 							};
@@ -56,95 +52,76 @@ function load(deptId) {
                              };
                         },
 						columns : [
-								// {
-								// 	checkbox : false
-								// },
+								{
+									checkbox : true
+								},
 								// 								{
 								// 	field : 'id',
-								// 	title : ''
+								// 	title : '主键'
 								// },
 																{
-									field : 'sourcePetition',
-									title : '信访来源'
+									field : 'projectname', 
+									title : '项目名称' 
 								},
 																{
-									field : 'petitiontime',
-									title : '信访时间'
+									field : 'constructionunit', 
+									title : '施工单位、项目负责人、联系电话' 
+								},
+																{
+									field : 'projectaddress', 
+									title : '项目地址' 
+								},
+																{
+									field : 'existisecurity', 
+									title : '存在安全隐患' 
+								},
+																{
+									field : 'measures', 
+									title : '整改措施' 
+								},
+																{
+									field : 'rectificationtime', 
+									title : '整改时间' 
 								},
 								// 								{
-								// 	field : 'lettertitle',
-								// 	title : '信访件标题'
+								// 	field : 'cancellation',
+								// 	title : '整改销案情况'
 								// },
-																{
-									field : 'content',
-									title : '信访内容'
-								},
 								{
-									field : 'receivetime',
-									title : '收文时间'
-								},
-																{
-									field : 'receiptno',
-									title : '收文编号'
-								},
-																{
-									field : 'serviceDept',
-									title : '交办科室'
-								},
-								{
-									field : 'status',
-									title : '状态',
+									field: "cancellation",
+									title : '整改销案情况',
 									align: 'center',
 									formatter :function (value,row,index) {
 										if (value == '0') {
-											return '<span class="label label-danger">未处理</span>';
+											return '<span class="label label-danger">未销案</span>';
 										} else if (value == '1') {
-										return '<span class="label label-primary">已处理</span>';
+											return '<span class="label label-primary">已销案</span>';
 										}
 
 									}
+
 								},
-								{
-									field: "processtime",
-									title: '规定回复时间'
-								},
-								{
-									field: "acceptancetime",
-									title: '上传受理告知书时间'
-								},
-
-
-								// 								{
-								// 	field : 'receiver',
-								// 	title : '交办人'
-								// },
-
-
-								// 								{
-								// 	field : 'processtime',
-								// 	title : '规定回复时间'
-								// },
-								// 								{
-								// 	field : 'actualreplytime',
-								// 	title : '实际回复时间'
-								// },
-								// 								{
-								// 	field : 'isrecover',
-								// 	title : '是否收回'
-								// },
 																{
-									field : 'recovertime',
-									title : '收回时间'
+									field : 'mainleader', 
+									title : '主要领导' 
 								},
-								// 								{
-								// 	field : 'remark',
-								// 	title : '备注'
-								// },
+																{
+									field : 'leadercharge', 
+									title : '分管领导及电话' 
+								},
+																{
+									field : 'department', 
+									title : '整改科室负责人及电话' 
+								},
+																{
+									field : 'supervise', 
+									title : '整改监督组负责人及电话' 
+								},
 								// 								{
 								// 	field : 'delflag',
-								// 	title : '逻辑删除(0:表示不删除，1表示逻辑删除)'
+								// 	title : '逻辑删除(0:未删除  1:逻辑删除)'
 								// },
-							{
+								{
 									title : '操作',
 									field : 'id',
 									align : 'center',
@@ -155,16 +132,13 @@ function load(deptId) {
 										var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										// var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-										// 		+ row.id
-										// 		+ '\')"><i class="fa fa-key"></i></a> ';
 										return e + d ;
 									}
 								} ]
 					});
+
+
 }
-
-
 function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
@@ -244,45 +218,5 @@ function batchRemove() {
 		});
 	}, function() {
 
-	});
-}
-//部门
-function loadTree(tree) {
-	$('#jstree').jstree({
-		'core' : {
-			'data' : tree
-		},
-		"plugins" : [ "search","checkbox"]
-	});
-	$('#jstree').jstree().open_all();
-}
-$('#jstree').on("changed.jstree", function(e, data) {
-	if (data.selected == -1) {
-		var opt = {
-			query : {
-				deptId : '',
-			}
-		}
-		deptIdex='';
-		$('#exampleTable').bootstrapTable('refresh', opt);
-	} else {
-		var opt = {
-			query : {
-				deptId : data.selected[0],
-			}
-		}
-		deptIdex=data.selected[0];
-		$('#exampleTable').bootstrapTable('refresh',opt);
-	}
-
-});
-
-function getTreeData() {
-	$.ajax({
-		type : "GET",
-		url : "/sys/dept/tree",
-		success : function(tree) {
-			loadTree(tree);
-		}
 	});
 }

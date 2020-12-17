@@ -30,7 +30,11 @@ public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
      */
     PetitionLetterNewDo selectOne(Long id);
 
-
+    /**
+     * 查询状态为定：未处理，没有逻辑删除的信访件信息
+     * 给提醒任务
+     */
+    List<PetitionLetterNewDo> selectRemind();
 
 
 }
