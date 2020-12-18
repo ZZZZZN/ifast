@@ -46,8 +46,8 @@ public class RemindJob implements Job {
     public void SendEmailForRemind(String[] emailAddress){
         ToEmail toEmail=new ToEmail();
         toEmail.setTos(emailAddress);
-        toEmail.setSubject("您有信访件需要处理请及时查看");
-        toEmail.setContent("请您登录政务平台，查看您的信访件，完成后返回处理意见");
+        toEmail.setSubject("您有信访件需要按时处理请及时查看");
+        toEmail.setContent("提醒：您有信访件在规定回复时间内，请您登录政务平台，查看您的信访件，完成后返回处理意见");
         try {
             toEmailService.commonEmail(toEmail);
         } catch (MessagingException e) {

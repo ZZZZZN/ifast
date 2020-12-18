@@ -122,20 +122,25 @@ public class PetitionLetterController extends BaseController {
 			associationService.insert(association);
 		}
 		String source=dictService.getName("source_ptittion",petitionLetter.getSourcepetition().toString());
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		for (int i=0;i<arr.length;i++){
 			String[] to= new String[1];
 			ToEmail toEmail=new ToEmail();
 			DeptDO deptDO=deptService.selectById(arr[i]);
 			//处理业务逻辑，获取需要发送邮件的事项和邮箱地址
 			String time=simpleDateFormat.format(petitionLetter.getPetitiontime());
-			to[0]=deptDO.getEmail();
+			if(deptDO.getEmail()!=null){
+				to[0]=deptDO.getEmail();
+			}else {
+				continue;
+			}
 			toEmail.setTos(to);
-			toEmail.setSubject("工作提醒");
-//			String content ="【南康住建智慧政务平台提醒】,您收到来自:"+source+"的信访件"
-//							+"交办科室有："+deptName+"收到信访时间为:"+time
-//							+",请尽快登录您的政务平台处理.";
-			String content="请参照上一份邮件进行日常工作，完成后返回处理意见";
+			toEmail.setSubject("您收到编号为:("+petitionLetter.getReceiptno()+")的新信访件请及时查看");
+			String content ="<b>【南康住建智慧政务平台提醒】,您收到来自:"+source+"的信访件</b>"
+							+"</br><b>交办站室：</b>"+deptName+";</br><b>信访日期:</b>"+time
+							+";"+"</br><b>规定回复日期:</b>"+simpleDateFormat.format(petitionLetter.getProcesstime())
+							+";</br>请您在规定回复日期前尽快登录您的政务平台处理。";
+//			String content="请参照上一份邮件进行日常工作，完成后返回处理意见";
 			toEmail.setContent(content);
 			try {
 				toEmailService.htmlEmail(toEmail);
