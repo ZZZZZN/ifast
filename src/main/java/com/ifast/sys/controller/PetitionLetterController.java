@@ -3,11 +3,6 @@ package com.ifast.sys.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.ifast.api.service.AppUserService;
-import com.ifast.common.domain.DictDO;
 import com.ifast.common.service.DictService;
 import com.ifast.common.utils.ShiroUtils;
 import com.ifast.sys.domain.*;
@@ -16,7 +11,6 @@ import com.ifast.sys.mail.support.ToEmailService;
 import com.ifast.sys.service.AssociationService;
 import com.ifast.sys.service.DeptService;
 import com.ifast.sys.service.PetitionLetterService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,15 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ifast.common.annotation.Log;
 import com.ifast.common.base.BaseController;
-
 import com.ifast.common.utils.Result;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,53 +51,45 @@ public class PetitionLetterController extends BaseController {
 	private String preix="sys/petitionLetter";
 	
 	@GetMapping("/")
-//	@RequiresPermissions("sys:petitionLetter:petitionLetter")
 	String PetitionLetter(){
 	    return preix+"/petitionLetter";
 	}
-	
+
+
 	@ResponseBody
 	@GetMapping("/list")
-//	@RequiresPermissions("sys:petitionLetter:petitionLetter")
 	public Result<Page<PetitionLetterDO>> list(PetitionLetterDO petitionLetterDTO, HttpServletRequest request){
-//        Wrapper<PetitionLetterDO> wrapper = new EntityWrapper<>(petitionLetterDTO).orderBy("id", false);
-
+		//通过shiro工具得到用户信息
 		UserDO user= ShiroUtils.getSysUser();
 		String name=request.getParameter("name");
 		String deptId="";
 		if(!user.getUsername().equals("admin")){
 			deptId=user.getDeptId().toString();
 		}
-         Map para =new HashMap();
+		//根据用户部门特定查询有该部门的信访件
+		Map para =new HashMap();
 		para.put("name",name);
 		para.put("deptId",deptId);
 		Page<PetitionLetterDO> page = petitionLetterService.selectPage(getPage(PetitionLetterDO.class),para);
         return Result.ok(page);
 	}
-	
+	@Log("添加页面")
 	@GetMapping("/add")
 	@RequiresPermissions("sys:petitionLetter:add")
 	String add(){
-	    return "sys/petitionLetter/add";
+		return "sys/petitionLetter/add";
 	}
 
-	@GetMapping("/edit/{id}")
-	@RequiresPermissions("sys:petitionLetter:edit")
-	String edit(@PathVariable("id") Long id,Model model){
-//		PetitionLetterDO petitionLetter = petitionLetterService.selectById(id);
-		PetitionLetterNewDo petitionLetter =petitionLetterService.selectOne(id);
-		model.addAttribute("petitionLetter", petitionLetter);
-	    return "sys/petitionLetter/edit";
-	}
-	
-	@Log("添加")
+	@Log("添加功能")
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("sys:petitionLetter:add")
+	@RequiresPermissions("sys:petitionLetter:save")
 	public Result<String> save( PetitionLetterDO petitionLetter){
+		//得到交办站室的id
 		String deptId=petitionLetter.getServiceDept();
 		String arr[]=deptId.split(",");
 		String deptName="";
+		//插入新的信访件信息
 		petitionLetterService.insert(petitionLetter);
 		for (int i=0;i<arr.length;i++){
 			DeptDO deptDO=deptService.selectById(arr[i]);
@@ -116,6 +98,7 @@ public class PetitionLetterController extends BaseController {
 			}else {
 				deptName+=","+deptDO.getName();
 			}
+			//插入与信访件信息相关的站室信息到关联表
 			AssociationDO association=new AssociationDO();
 			association.setDepid(Integer.valueOf(arr[i]));
 			association.setPetitionid(petitionLetter.getId());
@@ -123,6 +106,7 @@ public class PetitionLetterController extends BaseController {
 		}
 		String source=dictService.getName("source_ptittion",petitionLetter.getSourcepetition().toString());
 		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		//根据选择的站室发送邮件提醒收到信访件
 		for (int i=0;i<arr.length;i++){
 			String[] to= new String[1];
 			ToEmail toEmail=new ToEmail();
@@ -140,7 +124,6 @@ public class PetitionLetterController extends BaseController {
 							+"</br><b>交办站室：</b>"+deptName+";</br><b>信访日期:</b>"+time
 							+";"+"</br><b>规定回复日期:</b>"+simpleDateFormat.format(petitionLetter.getProcesstime())
 							+";</br>请您在规定回复日期前尽快登录您的政务平台处理。";
-//			String content="请参照上一份邮件进行日常工作，完成后返回处理意见";
 			toEmail.setContent(content);
 			try {
 				toEmailService.htmlEmail(toEmail);
@@ -150,13 +133,21 @@ public class PetitionLetterController extends BaseController {
 		}
         return Result.ok();
 	}
+
+	@Log("编辑页面")
+	@GetMapping("/edit/{id}")
+	@RequiresPermissions("sys:petitionLetter:edit")
+	String edit(@PathVariable("id") Long id,Model model){
+		PetitionLetterNewDo petitionLetter =petitionLetterService.selectOne(id);
+		model.addAttribute("petitionLetter", petitionLetter);
+		return "sys/petitionLetter/edit";
+	}
 	
-	@Log("修改")
+	@Log("修改功能")
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("sys:petitionLetter:edit")
+	@RequiresPermissions("sys:petitionLetter:update")
 	public Result<String>  update( PetitionLetterNewDo petitionLetterNewDo){
-//		System.out.println("petitionLetterNewDo = " + petitionLetterNewDo);
 		//查询相关联子表
 		PetitionLetterDO petitionLetterDO=new PetitionLetterDO();
 		petitionLetterDO.setId(petitionLetterNewDo.getId());
@@ -172,9 +163,12 @@ public class PetitionLetterController extends BaseController {
 		petitionLetterDO.setIsrecover(petitionLetterNewDo.getIsrecover());
 		petitionLetterDO.setRecovertime(petitionLetterNewDo.getRecovertime());
 		petitionLetterDO.setRemark(petitionLetterNewDo.getRemark());
+		//修改信访件信息
 		boolean update = petitionLetterService.updateById(petitionLetterDO);
+		//删除相关联表部门信息
 		associationService.deleteAll(petitionLetterNewDo.getId());
 		String deptId=petitionLetterNewDo.getDeptno();
+		//插入修改好后信访件相应部门到相关联表
 		if(deptId==null||deptId==""){
 
 		}else {

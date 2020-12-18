@@ -24,7 +24,7 @@ public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
     List<PetitionLetterDO> selectAllList(RowBounds var1, @Param("name") String name, @Param("deptId")String deptId);
 
     /**
-     *根据id查询出一条数据
+     *根据id关联查询信访信息表
      * @param id
      * @return
      */
