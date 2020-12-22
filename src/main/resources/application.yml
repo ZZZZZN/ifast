@@ -44,5 +44,7 @@ mybatis-plus:
     logic-not-delete-value: 0
     logic-delete-value: 1
   configuration:
+
     map-underscore-to-camel-case: false
     cache-enabled: false
+    call-setters-on-nulls: true
