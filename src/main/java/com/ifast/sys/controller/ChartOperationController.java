@@ -42,16 +42,13 @@ public class ChartOperationController extends BaseController {
 	private ChartOperationService chartOperationService;
 	
 	@GetMapping()
-//	@RequiresPermissions("wxmp:chartOperation:chartOperation")
 	String ChartOperation(){
 	    return "sys/chartOperation/chartOperation";
 	}
 	
 	@ResponseBody
 	@GetMapping("/list")
-//	@RequiresPermissions("sys:chartOperation:chartOperation")
 	public Result<Page<ChartOperationDO>> list(ChartOperationDO chartOperationDTO, HttpServletRequest request){
-//        Wrapper<ChartOperationDO> wrapper = new EntityWrapper<>(chartOperationDTO).orderBy("id", false);
 		Map para =new HashMap();
 		para.put("name",request.getParameter("name"));
 		para.put("dept",request.getParameter("searchName"));
@@ -59,34 +56,35 @@ public class ChartOperationController extends BaseController {
         Page<ChartOperationDO> page = chartOperationService.selectPage(getPage(ChartOperationDO.class),para);
         return Result.ok(page);
 	}
-	
+
 	@GetMapping("/add")
 	@RequiresPermissions("sys:chartOperation:add")
 	String add(){
-	    return "sys/chartOperation/add";
+		return "sys/chartOperation/add";
 	}
 
+	@Log("添加挂图作战表")
+	@ResponseBody
+	@PostMapping("/save")
+	@RequiresPermissions("sys:chartOperation:save")
+	public Result<String> save( ChartOperationDO chartOperation){
+		chartOperationService.insert(chartOperation);
+        return Result.ok();
+	}
+
+	@Log("编辑")
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("sys:chartOperation:edit")
 	String edit(@PathVariable("id") Long id,Model model){
 		ChartOperationDO chartOperation = chartOperationService.selectById(id);
 		model.addAttribute("chartOperation", chartOperation);
-	    return "sys/chartOperation/edit";
+		return "sys/chartOperation/edit";
 	}
-	
-	@Log("添加挂图作战表")
-	@ResponseBody
-	@PostMapping("/save")
-	@RequiresPermissions("sys:chartOperation:add")
-	public Result<String> save( ChartOperationDO chartOperation){
-		chartOperationService.insert(chartOperation);
-        return Result.ok();
-	}
-	
+
 	@Log("修改挂图作战表")
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("sys:chartOperation:edit")
+	@RequiresPermissions("sys:chartOperation:update")
 	public Result<String>  update( ChartOperationDO chartOperation){
 		boolean update = chartOperationService.updateById(chartOperation);
 		return update ? Result.ok() : Result.fail();

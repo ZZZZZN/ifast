@@ -27,7 +27,12 @@ import java.util.Map;
 @Service
 public class ChartOperationServiceImpl extends CoreServiceImpl<ChartOperationDao, ChartOperationDO> implements ChartOperationService {
 
-
+    /**
+     * 分页查询挂图作战表
+     * @param page
+     * @param para
+     * @return
+     */
     @Override
     public Page<ChartOperationDO> selectPage(Page<ChartOperationDO> page, Map para) {
         EntityWrapper wrapper = new EntityWrapper();

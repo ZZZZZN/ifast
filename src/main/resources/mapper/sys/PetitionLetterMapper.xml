@@ -27,7 +27,7 @@
 
 
 
-
+	<!--按条件查询信访信息表-->
     <select id="selectAllList" parameterType="java.lang.String" resultType="com.ifast.sys.domain.PetitionLetterDO">
 		SELECT
 		s.id AS id,
@@ -62,7 +62,7 @@
 		</where>
 		GROUP BY s.id,t.name
     </select>
-
+	<!--根据id关联查询信访信息表-->
 	<select id="selectOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		SELECT
 		s.id AS id,
@@ -92,6 +92,7 @@
 		s.id,t.NAME
 	</select>
 
+	<!--查询规定回复时间信件信息	-->
 	<select id="selectRemind" resultType="com.ifast.sys.domain.PetitionLetterNewDo">
 		SELECT
 		s.id AS id,

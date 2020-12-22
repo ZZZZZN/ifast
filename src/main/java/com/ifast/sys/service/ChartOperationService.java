@@ -20,7 +20,7 @@ import java.util.Map;
 public interface ChartOperationService extends CoreService<ChartOperationDO> {
 
     /**
-     * 分页查询
+     * 分页查询挂图作战表
      * @param page
      * @param para
      * @return
