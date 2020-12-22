@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+    <meta http-equiv="Expires" content="0">
+    <title>南康区住建局</title>
+    <link href="/css/login1.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="login_box">
+      <div class="login_l_img"><img src="/img/login-img.png" /></div>
+      <div class="login">
+          <div class="login_logo"><a href="#"><img src="/img/login_logo.png" /></a></div>
+          <div class="login_name">
+               <p>南康住建智慧政务平台</p>
+          </div>
+          <form action="/login" method="post">
+              <input name="num" id="num" type="text"  value="用户名" onfocus="this.value=''" onblur="if(this.value==''){this.value='用户名'}">
+              <!--<span id="password_text">密码</span>-->
+              <input name="password" id="pass" type="password" placeholder="密码" />
+              <input value="登录" style="width:100%;" type="button" class="log-btn">
+          </form>
+      </div>
+
+</div>
+<div style="text-align:center;">
+</div>
+<script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
+<script src="css/login/jquery.js"></script>
+<script src="css/login/agree.js"></script>
+<script src="/js/plugins/layer/layer.min.js" th:src="@{/js/plugins/layer/layer.min.js}"></script>
+<script src="css/login/login.js"></script>
+<script>
+    // $(document).ready(function(){
+    //     $(".text_login").focus(function(){
+    //         if($(this).val()=='user name' || $(this).val()=='password'){
+    //             $(this).val('');
+    //         }
+    //         if($(this).attr('id')=='password1'){
+    //             $(this).hide();
+    //             $('#password2').show();
+    //             $('#password2').focus();
+    //         }
+    //     });
+    //     $(".text_login").blur(function(){
+    //         if($(this).attr('id')=='password2' && $(this).val()==''){
+    //             $(this).hide();
+    //             $('#password1').show();
+    //             $('#password1').val('password');
+    //         }
+    //         else if($(this).attr('id')=='uname' && $(this).val()=='' ){
+    //             $(this).val('user name');
+    //         }
+    //     });
+    // });
+</script>
+
+</body>
+</html>

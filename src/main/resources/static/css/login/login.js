@@ -1,5 +1,5 @@
 $(function(){
-	var tab = 'account_number';
+	/*var tab = 'account_number';
 	// 选项卡切换
 	$(".account_number").click(function () {
 		$('.tel-warn').addClass('hide');
@@ -46,8 +46,8 @@ $(function(){
 		$('.tel-warn').addClass('hide');
 		checkBtn();
 	});
-
-	// 按钮是否可点击
+*/
+/*	// 按钮是否可点击
 	function checkBtn()
 	{
 		$(".log-btn").off('click');
@@ -92,25 +92,9 @@ $(function(){
 		}
 	}
 
-	function checkPass(pass){
-		if (pass == '') {
-			$('.pass-err').removeClass('hide').text('请输入密码');
-			return false;
-		} else {
-			$('.pass-err').addClass('hide');
-			return true;
-		}
-	}
 
-	function checkCode(code){
-		if (code == '') {
-			// $('.tel-warn').removeClass('hide').text('请输入验证码');
-			return false;
-		} else {
-			// $('.tel-warn').addClass('hide');
-			return true;
-		}
-	}
+
+
 
 	function checkPhone(phone){
 		var status = true;
@@ -159,25 +143,45 @@ $(function(){
 			$('.error').addClass('hide');
 			return true;
 		}
-	}
+	}*/
 
 	// 登录点击事件
-	function sendBtn(){
-		if (tab == 'account_number') {
+	/*	if (tab == 'account_number') {*/
+
+	function checkPass(pass){
+		if (pass == '') {
+			$('.pass-err').removeClass('hide').text('请输入密码');
+			return false;
+		} else {
+			$('.pass-err').addClass('hide');
+			return true;
+		}
+	}
+
+	function checkAccount(username){
+		if (username == '') {
+			$('.num-err').removeClass('hide').find("em").text('请输入账户');
+			return false;
+		} else {
+			$('.num-err').addClass('hide');
+			return true;
+		}
+	}
+	function checkCode(code){
+		if (code == '') {
+			// $('.tel-warn').removeClass('hide').text('请输入验证码');
+			return false;
+		} else {
+			// $('.tel-warn').addClass('hide');
+			return true;
+		}
+	}
 			$(".log-btn").click(function(){
 				// var type = 'phone';
 				var inp = $.trim($('#num').val());
 				var pass = $.trim($('#pass').val());
 				if (checkAccount(inp) && checkPass(pass)) {
 					var ldata = {userinp:inp,password:pass};
-					if (!$('.code').hasClass('hide')) {
-						code = $.trim($('#veri').val());
-						if (!checkCode(code)) {
-							return false;
-						}
-						ldata.code = code;
-					}
-					
 					var params = {};
 					params.username = inp;
 					params.password = pass;
@@ -188,6 +192,7 @@ $(function(){
 			            type: "POST",
 			            url: ctx+"login",
 			            data: params,
+						async:false,
 			            success: function (r) {
 			                if (r.code == 0) {
 			                    parent.location.href = '/index';
@@ -200,7 +205,7 @@ $(function(){
 					return false;
 				}
 			});
-		} else {
+		/*} else {
 			$(".log-btn").click(function(){
 				// var type = 'phone';
 				var phone = $.trim($('#num2').val());
@@ -236,8 +241,7 @@ $(function(){
 					return false;
 				}
 			});
-		}
-	}
+		}*/
 
 	// 登录的回车事件
 	$(window).keydown(function(event) {

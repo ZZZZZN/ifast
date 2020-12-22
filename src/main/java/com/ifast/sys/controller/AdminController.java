@@ -39,7 +39,7 @@ public class AdminController extends BaseController {
 
     @GetMapping({ "/", "" })
     String welcome(Model model) {
-        return "redirect:/login";
+        return "redirect:/login3";
     }
 
     @GetMapping({ "/index" })
@@ -57,7 +57,7 @@ public class AdminController extends BaseController {
 
     @GetMapping("/login")
     String login() {
-        return "login";
+        return "/login3";
     }
 
     @Log("登录")
