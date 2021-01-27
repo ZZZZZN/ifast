@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifast.sys.dao.PatrolDao">
+
+	<!--查询列表数据-->
+	<select id="selectList"    resultType="com.alibaba.fastjson.JSONObject">
+		select
+		记录人,
+		码名称,
+		记录单名称,
+		记录时间,
+		状态,
+		CASE `检查内容_1.检查水泵运行声音是否异常_827756_4713751` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check1,
+		CASE`检查内容_2.检查配电柜电流、频率显示状态_827756_4713752` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check2,
+		case `检查内容_3.检查个连接螺栓是否正常_827756_4713753` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check3,
+		case`检查内容_4.检查泵体及连接管道是否有漏水现象_827756_4713754` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check4,
+		case`检查内容_5.检查压力表指针是否在正常范围_827756_4713755` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check5,
+		case `检查内容_6.测试选项_827756_4721584` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check6,
+		/*`选项_828145` as 选项,*/
+		`异常情况说明_827757` as 异常情况说明,
+		`录音说明情况_827758` as 录音说明情况,
+		/*`现场照片_827759` as 现场照片,
+		`现场视频_827760` as 现场视频,*/
+		/*`姓名_827761` as 姓名,*/
+		`手机_827762` as 手机,
+		`定位_address_827763` as 地址
+		/*`定位_lat_827763` as lat,
+		`定位_log_827763` as log*/
+
+
+		 from table_D2
+	</select>
+
+
+	<!--查询表字段名称-->
+	<select id="selectCol" resultType="com.alibaba.fastjson.JSONObject">
+		select /*record_id,
+		code_id,
+		tpl_code_id,*/
+		记录人,
+		码名称,
+		/*tpl_id,*/
+		记录单名称,
+		记录时间,
+		状态,
+		/*member_id,
+		auth_id,
+		`检查结果_827755` as 检查结果,
+		`检查内容_827756` as 检查内容,*/
+		CASE `检查内容_1.检查水泵运行声音是否异常_827756_4713751` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check1,
+		CASE`检查内容_2.检查配电柜电流、频率显示状态_827756_4713752` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check2,
+		case `检查内容_3.检查个连接螺栓是否正常_827756_4713753` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check3,
+		case`检查内容_4.检查泵体及连接管道是否有漏水现象_827756_4713754` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check4,
+		case`检查内容_5.检查压力表指针是否在正常范围_827756_4713755` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check5,
+		case `检查内容_6.测试选项_827756_4721584` WHEN 0 THEN '异常'
+															WHEN 1 THEN '正常'
+															ELSE '' END as check6,
+		/*`选项_828145` as 选项,
+		`异常情况说明_827757` as 异常情况说明,
+		`录音说明情况_827758` as 录音说明情况,
+		`现场照片_827759` as 现场照片,
+		`现场视频_827760` as 现场视频,*/
+		/*`姓名_827761` as 姓名,*/
+		`手机_827762` as 手机,
+		`定位_address_827763` as 地址
+		/*`定位_lat_827763` as lat,
+		`定位_log_827763` as log*/
+
+
+		 from table_D2
+	</select>
+</mapper>
