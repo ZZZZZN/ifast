@@ -59,28 +59,29 @@ spring:
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
       datasource:
         master:
-          url: jdbc:mysql://localhost:3306/ifast?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
+          url: jdbc:mysql://localhost:3306/huozhige?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false #172.20.11.23
           username: root
-          password: 123456
+          password: 123
           driver-class-name: com.mysql.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
         slave_1:
           url: jdbc:mysql://localhost:3306/accept_data?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
           username: root
-          password: 123456
+          password: 123
           driver-class-name: com.mysql.jdbc.Driver
 
 #邮件配置
   mail:
     #smtp服务主机
     host: smtp.163.com
+    port: 465
     #服务协议
-    protocol: smtp
+    protocol: smtps
     # 编码集
     default-encoding: UTF-8
     #发送邮件的账户
     username: buildtest1202@163.com
     #授权码
-    password: UFYEPDESDQYWYDJR
+    password: UNTLYLQYJCSWFVSF
     test-connection: true
     properties:
       mail:

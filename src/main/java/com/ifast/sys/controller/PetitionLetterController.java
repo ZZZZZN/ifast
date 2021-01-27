@@ -194,8 +194,39 @@ public class PetitionLetterController extends BaseController {
         return Result.ok();
 	}
 
+	/**
+	 * 查询限期整改在当天还没改的负责人邮箱
+	 */
+	@GetMapping( "/remind")
+	@ResponseBody
+	public void remind(){
+		//查询限期整改在当天还没改的负责人邮箱
+		List<InvestigationDo> remind= petitionLetterService.selectTerm();
 
+		for (InvestigationDo item:remind) {
+			if(item.getEmail()==null){
+				continue;
+			}
+			String[] email=new String[1];
+			if(item.getEmail()!=null){
+				email[0]=item.getEmail();
+			}
+			SendEmailForRemind(email,item.getProblem());
+		}
+	}
 
+	//发邮件方法
+	public void SendEmailForRemind(String[] emailAddress,String problem){
+		ToEmail toEmail=new ToEmail();
+		toEmail.setTos(emailAddress);
+		toEmail.setSubject("您有工程项目隐患问题请及时销号");
+		toEmail.setContent("提醒：您有项目隐患问题仍未销号.请及时销号处理。主要问题是："+problem);
+		try {
+			toEmailService.commonEmail(toEmail);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 //	@Log("批量删除")
 //	@PostMapping( "/batchRemove")

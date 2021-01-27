@@ -4,6 +4,7 @@ package com.ifast.sys.service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ifast.common.base.CoreService;
+import com.ifast.sys.domain.InvestigationDo;
 import com.ifast.sys.domain.PetitionLetterDO;
 import com.ifast.sys.domain.PetitionLetterNewDo;
 import org.apache.ibatis.annotations.Param;
@@ -42,6 +43,12 @@ public interface PetitionLetterService  extends CoreService<PetitionLetterDO>{
      * 为定时任务做查询
      */
     List<PetitionLetterNewDo> selectRemind();
+
+
+    /**
+     * 查询限期整改在当天还没改的负责人邮箱
+     */
+    List<InvestigationDo> selectTerm();
 
 
 }

@@ -156,6 +156,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/files/**", "anon");
         filterChainDefinitionMap.put("/test/**", "anon");
         filterChainDefinitionMap.put("/tt/**", "anon");
+        filterChainDefinitionMap.put("/sys/petitionLetter/**", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**", "authc");

@@ -120,5 +120,11 @@
 		GROUP BY
 		s.id
 	</select>
+	
+	<!--查询限期整改在当天还没改的负责人邮箱	-->
+	<select id="selectTerm" resultType="com.ifast.sys.domain.InvestigationDo">
+		select `mainproblem` AS problem,`email` as email from `trouble_investigation` where `isorno`=0 AND now()>=`rectificationdate`;
+	</select>
+	
 
 </mapper>

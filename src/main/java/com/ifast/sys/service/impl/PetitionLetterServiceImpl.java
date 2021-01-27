@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.SqlHelper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ifast.sys.dao.PetitionLetterDao;
+import com.ifast.sys.domain.InvestigationDo;
 import com.ifast.sys.domain.PetitionLetterDO;
 import com.ifast.sys.domain.PetitionLetterNewDo;
 import com.ifast.sys.service.PetitionLetterService;
@@ -57,5 +58,11 @@ public class PetitionLetterServiceImpl extends CoreServiceImpl<PetitionLetterDao
     @Override
     public List<PetitionLetterNewDo> selectRemind() {
         return baseMapper.selectRemind();
+    }
+
+
+    @Override
+    public List<InvestigationDo> selectTerm() {
+        return baseMapper.selectTerm();
     }
 }

@@ -3,6 +3,7 @@ package com.ifast.sys.dao;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.ifast.common.base.BaseDao;
+import com.ifast.sys.domain.InvestigationDo;
 import com.ifast.sys.domain.PetitionLetterDO;
 import com.ifast.sys.domain.PetitionLetterNewDo;
 import org.apache.ibatis.annotations.Param;
@@ -35,6 +36,13 @@ public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
      * 给提醒任务
      */
     List<PetitionLetterNewDo> selectRemind();
+
+
+    /**
+     * 查询限期整改在当天还没改的负责人邮箱
+     */
+    List<InvestigationDo> selectTerm();
+
 
 
 }
