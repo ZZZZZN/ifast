@@ -44,11 +44,22 @@ public interface PetitionLetterService  extends CoreService<PetitionLetterDO>{
      */
     List<PetitionLetterNewDo> selectRemind();
 
+    /**
+     * 已提交未提醒信访件查询
+     */
+    List<PetitionLetterNewDo> selectsubmit();
+
 
     /**
      * 查询限期整改在当天还没改的负责人邮箱
      */
     List<InvestigationDo> selectTerm();
+
+    /**
+     * 根据ID更新提醒状态
+     * @param id
+     */
+    void updateTxStatus(Integer id);
 
 
 }

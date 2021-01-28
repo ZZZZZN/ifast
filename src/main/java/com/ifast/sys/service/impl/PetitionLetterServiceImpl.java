@@ -60,9 +60,21 @@ public class PetitionLetterServiceImpl extends CoreServiceImpl<PetitionLetterDao
         return baseMapper.selectRemind();
     }
 
+    @Override
+    public List<PetitionLetterNewDo> selectsubmit() {
+        return baseMapper.selectsubmit();
+    }
+
 
     @Override
     public List<InvestigationDo> selectTerm() {
         return baseMapper.selectTerm();
     }
+
+    @Override
+    public void updateTxStatus(Integer id) {
+         baseMapper.updateTxStatus(id);
+    }
+
+
 }

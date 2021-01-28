@@ -37,12 +37,22 @@ public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
      */
     List<PetitionLetterNewDo> selectRemind();
 
+    /**
+     * 查询状态为未提交提醒的信访件
+     * 给提醒任务
+     */
+    List<PetitionLetterNewDo> selectsubmit();
+
 
     /**
      * 查询限期整改在当天还没改的负责人邮箱
      */
     List<InvestigationDo> selectTerm();
 
-
+    /**
+     * 根据id更新提醒状态
+     * @param id
+     */
+     void updateTxStatus(@Param("id") Integer id);
 
 }

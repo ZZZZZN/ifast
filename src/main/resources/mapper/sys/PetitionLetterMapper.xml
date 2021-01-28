@@ -94,37 +94,61 @@
 
 	<!--查询规定回复时间信件信息	-->
 	<select id="selectRemind" resultType="com.ifast.sys.domain.PetitionLetterNewDo">
-		SELECT
-		s.id AS id,
-		petitiontime,
-		content,
-		receiptno,
-		GROUP_CONCAT( d.NAME ) AS deptname,
-		GROUP_CONCAT( a.depid ) AS deptno,
-		GROUP_CONCAT( d.email ) AS email,
-		receivetime,
-		processtime,
-		actualreplytime,
-		acceptancetime,
-		recovertime,
-		remark
-		FROM
-		sys_petition_letter s
-		LEFT JOIN ( SELECT petitionid, depid FROM sys_association ) a ON s.id = a.petitionid
-		LEFT JOIN ( SELECT id, NAME, email FROM sys_dept ) d ON a.depid = d.id
-		WHERE
-		STATUS = 0
-		AND s.delflag = 0
-		AND isrecover = 0
-		AND processtime IS NOT NULL
-		GROUP BY
-		s.id
+SELECT
+	a.id,
+	a.`信访时间` AS petitiontime,
+	a.`信访内容` AS content,
+	a.`收文时间` AS receivetime,
+	a.`规定回复时间` AS processtime,
+	a.`实际回复时间` AS actualreplytime,
+	a.`上传受理告知书时间` AS acceptancetime,
+	a.`交办站室` AS deptname,
+	GROUP_CONCAT( b.`部门邮箱` ) AS email
+
+FROM
+	`信访表` a
+	LEFT JOIN `部门表` b ON FIND_IN_SET( b.`部门名称`, a.`交办站室` )
+WHERE
+	a.`状态` = 13
+	AND a.`规定回复时间` IS NOT NULL
+	GROUP BY
+		a.id
 	</select>
 	
 	<!--查询限期整改在当天还没改的负责人邮箱	-->
 	<select id="selectTerm" resultType="com.ifast.sys.domain.InvestigationDo">
 		select `mainproblem` AS problem,`email` as email from `trouble_investigation` where `isorno`=0 AND now()>=`rectificationdate`;
 	</select>
+
+
+	<!--查询未做提交提醒的邮件-->
+	<select id="selectsubmit" resultType="com.ifast.sys.domain.PetitionLetterNewDo">
+SELECT
+	a.id,
+	a.`信访时间` AS petitiontime,
+	a.`信访内容` AS content,
+	a.`收文时间` AS receivetime,
+	a.`规定回复时间` AS processtime,
+	a.`实际回复时间` AS actualreplytime,
+	a.`上传受理告知书时间` AS acceptancetime,
+	a.`交办站室` AS deptname,
+	GROUP_CONCAT( b.`部门邮箱` ) AS email
+
+FROM
+	`信访表` a
+	LEFT JOIN `部门表` b ON FIND_IN_SET( b.`部门名称`, a.`交办站室` )
+WHERE
+	a.`状态` = 13
+	and a.`提交是否提醒`=0
+	AND a.`规定回复时间` IS NOT NULL
+	GROUP BY
+		a.id
+	</select>
+
+	<!--更改提交提醒状态-->
+	<update id="updateTxStatus" parameterType="java.lang.Integer">
+		update `信访表` set `提交是否提醒`=1 where id= #{id}
+	</update>
 	
 
 </mapper>
