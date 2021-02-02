@@ -21,20 +21,12 @@ ifast:
     jsessionidKey: SESSION
     sessionKeyPrefix: ${ifast.projectName}:session
   oss:
-    local: # 配置 localPath 启用本地上传（默认方式）
-      localPath: upload
-      rootURL: ${ifast.projectRootURL}upload
     aliyun: # 配置 accessKeySecret 启用阿里云OSS
-      accessKeyId:
-      accessKeySecret:
-      bucketName:
+      accessKeyId: LTAI4G5fwdUktnS4Q2xUcfmT
+      accessKeySecret: 1gN5Ff72JECUj8o6xAyntqPmdrCkl3
+      bucketName: nkzj
       # endpoint以深圳为例，其它region请按实际情况填写
       endpoint: http://oss-cn-shenzhen.aliyuncs.com
-    qiniu: # 配置 accessKey 启用七牛云OSS
-      accessKey: 8-HMj9EgGNIP-xuOCpSzTn-OMyGOFtR3TxLdn4Uu
-      secretKey: SjpGg3V6PsMdJgn42PeEd5Ik-6aNyuwdqV5CPM6A
-      bucket: ifast
-      accessURL: http://cdn.ifast.site/
   sms:
     cacheKey: ${ifast.projectName}:cache
     cacheKeyPrefix: sms
@@ -59,12 +51,12 @@ spring:
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
       datasource:
         master:
-          url: jdbc:mysql://47.115.200.228:3306/huozhige?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false #172.20.11.23
+          url: jdbc:mysql://47.115.200.228:3306/testenvironment?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false #172.20.11.23
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
         slave_1:
-          url: jdbc:mysql://47.115.200.228:3306/huozhige?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
+          url: jdbc:mysql://47.115.200.228:3306/huozhige?testenvironment=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver

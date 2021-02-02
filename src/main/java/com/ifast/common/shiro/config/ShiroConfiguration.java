@@ -135,7 +135,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/wx/mp/msg/**", "anon");
         // api
         filterChainDefinitionMap.put("/api/user/refresh", "anon");
-        filterChainDefinitionMap.put("/api/**", "jwt");
+        filterChainDefinitionMap.put("/api/user/refresh", "anon");
+        filterChainDefinitionMap.put("/export/excel/**", "anon");
         filterChainDefinitionMap.put("/accept/acceptData/**", "anon");
         // email
         filterChainDefinitionMap.put("/email/**", "anon");
