@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ifast.api.mapper.dao.ExportExceldao">
+
+    <select id="selectProjectList" resultType="com.ifast.api.pojo.dto.ProjectDTO">
+        select * from (SELECT
+	ID,
+	projectname,
+	projectaddress,
+	projectType,
+	buildNature,
+	supervisionNum,
+	buildareaUp,
+	buildareaDown,
+	projectLength,
+	buildHeight,
+	layerUp,
+	layerDown,
+	structureType,
+	engineerCost,
+	unplanTime,
+	planTime,
+	supervisionTime,
+	supervisionNature,
+	supervisionGroup,
+	supervisioner,
+	uncompleted,
+	dangerEngineer,
+	overweightNum,
+	constructionUnitName AS NAME,
+	constructionPerson AS person,
+	constructionPersonNum AS personnum,
+	constructionPersonPhone AS personphone,
+	'建设单位' as dw
+FROM
+	project_list UNION ALL
+	SELECT
+	id,
+	projectname,
+	projectaddress,
+	projectType,
+	buildNature,
+	supervisionNum,
+	buildareaUp,
+	buildareaDown,
+	projectLength,
+	buildHeight,
+	layerUp,
+	layerDown,
+	structureType,
+	engineerCost,
+	unplanTime,
+	planTime,
+	supervisionTime,
+	supervisionNature,
+	supervisionGroup,
+	supervisioner,
+	uncompleted,
+	dangerEngineer,
+	overweightNum,
+	designUnitName AS NAME,
+	designPerson AS person,
+	designPersonNum AS personnum,
+	designPersonPhone AS personphone,
+	'设计单位' as dw
+FROM
+	project_list
+	UNION ALL
+	SELECT
+	id,
+	projectname,
+	projectaddress,
+	projectType,
+	buildNature,
+	supervisionNum,
+	buildareaUp,
+	buildareaDown,
+	projectLength,
+	buildHeight,
+	layerUp,
+	layerDown,
+	structureType,
+	engineerCost,
+	unplanTime,
+	planTime,
+	supervisionTime,
+	supervisionNature,
+	supervisionGroup,
+	supervisioner,
+	uncompleted,
+	dangerEngineer,
+	overweightNum,
+	investigateUnitName AS NAME,
+	investigatePerson AS person,
+	investigatePersonNum AS personnum,
+	investigatePersonPhone AS personphone,
+	'勘察单位' as dw
+FROM
+	project_list
+		UNION ALL
+	SELECT
+	id,
+	projectname,
+	projectaddress,
+	projectType,
+	buildNature,
+	supervisionNum,
+	buildareaUp,
+	buildareaDown,
+	projectLength,
+	buildHeight,
+	layerUp,
+	layerDown,
+	structureType,
+	engineerCost,
+	unplanTime,
+	planTime,
+	supervisionTime,
+	supervisionNature,
+	supervisionGroup,
+	supervisioner,
+	uncompleted,
+	dangerEngineer,
+	overweightNum,
+	supervisionUnitName AS NAME,
+	supervisionPerson AS person,
+	supervisionPersonNum AS personnum,
+	supervisionPersonPhone AS personphone,
+	'监理单位' as dw
+FROM
+	project_list
+	UNION ALL
+	SELECT
+	id,
+	projectname,
+	projectaddress,
+	projectType,
+	buildNature,
+	supervisionNum,
+	buildareaUp,
+	buildareaDown,
+	projectLength,
+	buildHeight,
+	layerUp,
+	layerDown,
+	structureType,
+	engineerCost,
+	unplanTime,
+	planTime,
+	supervisionTime,
+	supervisionNature,
+	supervisionGroup,
+	supervisioner,
+	uncompleted,
+	dangerEngineer,
+	overweightNum,
+	workUnitName AS NAME,
+	workPerson AS person,
+	workPersonNum AS personnum,
+	workPersonNum AS personphone,
+	'施工单位' as dw
+FROM
+	project_list) a
+	order by a.id
+    </select>
+</mapper>
