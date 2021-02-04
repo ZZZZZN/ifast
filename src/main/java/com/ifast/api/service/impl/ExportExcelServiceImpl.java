@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -43,13 +40,13 @@ public class ExportExcelServiceImpl implements ExportExcelService {
     private UploadServer uploadServer;
 
     @Override
-    public String exportProject() {
+    public String exportProject() throws IOException {
         List<ProjectDTO> list =exportExceldao.selectProjectList();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int[] mergeColumnIndex = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,30};
-        try {
+
             int mergeRowIndex = 5;
-            String templateFileName = FileUtil.getPath() + "templates/excel" + File.separator + "project.xlsx";
+            String templateFileName = /*"C:/temple/project.xlsx";*/FileUtil.getPath() + "templates/excel" + File.separator + "project.xlsx";
             String fileName = URLEncoder.encode("下载后的名称.xls", "utf-8");
 
             FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
@@ -64,16 +61,5 @@ public class ExportExcelServiceImpl implements ExportExcelService {
             String url = uploadServer.upload(out.toByteArray(),"项目列表.xlsx");
             out.close();
             return url;
-        } catch (Exception e) {
-            // 重置response
-            /*response.reset();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
-            Map<String, String> map = new HashMap<String, String>(16);
-            map.put("status", "failure");
-            map.put("message", "下载文件失败" + e.getMessage());
-            response.getWriter().println(JSON.toJSONString(map));*/
-        }
-        return null;
     }
 }
