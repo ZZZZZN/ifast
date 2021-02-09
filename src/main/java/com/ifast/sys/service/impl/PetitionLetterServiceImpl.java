@@ -61,6 +61,11 @@ public class PetitionLetterServiceImpl extends CoreServiceImpl<PetitionLetterDao
     }
 
     @Override
+    public List<PetitionLetterNewDo> selectOverDate() {
+        return baseMapper.selectOverDate();
+    }
+
+    @Override
     public List<PetitionLetterNewDo> selectsubmit() {
         return baseMapper.selectsubmit();
     }

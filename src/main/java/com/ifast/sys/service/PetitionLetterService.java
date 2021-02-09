@@ -43,6 +43,11 @@ public interface PetitionLetterService  extends CoreService<PetitionLetterDO>{
      * 为定时任务做查询
      */
     List<PetitionLetterNewDo> selectRemind();
+    /**
+     * 超时未处理
+     */
+    List<PetitionLetterNewDo> selectOverDate();
+
 
     /**
      * 已提交未提醒信访件查询

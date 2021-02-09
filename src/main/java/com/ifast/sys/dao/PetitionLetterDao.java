@@ -55,4 +55,10 @@ public interface PetitionLetterDao extends BaseDao<PetitionLetterDO> {
      */
      void updateTxStatus(@Param("id") Integer id);
 
+    /**
+     * 查询超时信访件
+     * @return
+     */
+    List<PetitionLetterNewDo> selectOverDate();
+
 }
