@@ -48,7 +48,15 @@ public class SubmitJob implements Job {
                 data.put("processtime",DateUtils.format(item.getProcesstime(),DateUtils.DATE_PATTERN_10));
                 data.put("receiptno",item.getReceiptno());
                 if(emailAddress != null && emailAddress.length > 0){
-                    SendEmailForRemind(emailAddress,data);
+
+                    try {
+                        SendEmailForRemind(emailAddress,data);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        return;
+                    }finally {
+                        return;
+                    }
                 }
 
                 //修改提醒状态
@@ -58,7 +66,7 @@ public class SubmitJob implements Job {
     }
 
     //发邮件方法
-    public void SendEmailForRemind(String[] emailAddress,JSONObject data){
+    public void SendEmailForRemind(String[] emailAddress,JSONObject data) throws MessagingException {
         ToEmail toEmail=new ToEmail();
         toEmail.setTos(emailAddress);
         toEmail.setSubject("您有信访件需要按时处理请及时查看");
@@ -66,7 +74,7 @@ public class SubmitJob implements Job {
         try {
             toEmailService.commonEmail(toEmail);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 

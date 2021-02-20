@@ -35,7 +35,7 @@ public class RemindJob implements Job {
         String nowTime=DateUtils.format(now,DateUtils.DATE_PATTERN_10);
         for (PetitionLetterNewDo item:remind) {
             //如果查询到的规定回复时间和当前时间相同则发送邮件
-            if(DateUtils.format(item.getProcesstime(),DateUtils.DATE_PATTERN_10).equals(nowTime)){
+            if(DateUtils.add(item.getProcesstime(),1).equals(nowTime)){
                //获取信访件信息
                 JSONObject data=new JSONObject();
                 data.put("sourcepetition",item.getSourcepetition());

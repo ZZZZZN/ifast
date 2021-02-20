@@ -1,6 +1,7 @@
 package com.ifast.common.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -32,6 +33,28 @@ public class DateUtils {
 
     public static String format(Date date, String pattern) {
         if (date != null) {
+            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            return df.format(date);
+        }
+        return null;
+    }
+
+    /**
+     * 增加
+     * @param date
+     * @param addNum
+     * @return
+     */
+    public static String add(Date date,Integer addNum) {
+        return add(date, DATE_PATTERN_10,addNum);
+    }
+
+    public static String add(Date date, String pattern,Integer addNum) {
+        if (date != null) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.DAY_OF_MONTH, addNum);
+            date=c.getTime();
             SimpleDateFormat df = new SimpleDateFormat(pattern);
             return df.format(date);
         }

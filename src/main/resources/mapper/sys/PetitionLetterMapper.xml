@@ -116,6 +116,7 @@ WHERE
 	AND a.`规定回复时间` IS NOT NULL
 	GROUP BY
 		a.id
+		LIMIT 0,4
 	</select>
 	
 	<!--查询限期整改在当天还没改的负责人邮箱	-->
@@ -147,8 +148,10 @@ WHERE
 	a.`状态` = 13
 	and a.`提交是否提醒`=0
 	AND a.`规定回复时间` IS NOT NULL
+	and b.`部门邮箱` is not null
 	GROUP BY
 		a.id
+		LIMIT 0,4
 	</select>
 
 	<!--更改提交提醒状态-->
@@ -181,5 +184,6 @@ WHERE
 		and DATE_FORMAT(a.`规定回复时间`,'%Y-%m-%d')<![CDATA[<=]]>DATE_FORMAT(now(),'%Y-%m-%d')
 		GROUP BY
 		a.id
+		LIMIT 0,4
 	</select>
 </mapper>
